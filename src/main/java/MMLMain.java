@@ -12,7 +12,7 @@ public class MMLMain {
 		// System.err.println(args[0]);
 		// System.err.println(args[1]);
 		
-		TargetLanguage tl = TargetLanguage.R; // TargetLanguage.R
+		TargetLanguage tl = TargetLanguage.PYTHON; // TargetLanguage.R
 		MLExecutor ex = null;
 		if (tl == TargetLanguage.PYTHON) {			
 			ex = new PythonMLExecutor();				
