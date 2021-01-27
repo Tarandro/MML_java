@@ -9,6 +9,7 @@ public class PythonMLExecutor extends MLExecutor {
 	
 	private final String PYTHON_OUTPUT = "foofile.py";	
 
+	// TODO: refactoring of the code is needed since anti-pattern/bad smell https://fr.wikipedia.org/wiki/Code_smell#Long_Parameter_List
 	public void generateCode(String file_path, String target) throws IOException {
 		// Python code 
 		String pythonCode = "import pandas as pd\n"

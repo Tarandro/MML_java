@@ -8,9 +8,21 @@ public class MMLPythonTest {
 		
 		MLExecutor ex = new PythonMLExecutor();
 		ex.generateCode("iris.csv", "variety");
-		ex.run();
-		
+		ex.run();	
+		// TODO: check assertions over return value (eg it is indeed a float value)
 		
 	}
+	
+	@Test
+	public void testPython2() throws Exception {
+		
+		MLExecutor ex = new PythonMLExecutor();
+		ex.generateCode("iris.csv", "varietyyy");
+		ex.run();	
+		// TODO: should raise an exception
+		
+	}
+	
+	
 
 }

@@ -32,6 +32,7 @@ public class MMLMain {
 			// TODO 
 		}
 		
+		// TODO: instead of command line arguments, we will use JSON files to configure the compilers
 		ex.generateCode(args[0], args[1]);
 		ex.run();	
 		
