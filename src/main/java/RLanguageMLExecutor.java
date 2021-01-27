@@ -46,7 +46,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 
 	}
 
-	public void run() throws IOException {
+	public MLResult run() throws IOException {
 		// execute the generated Python code
 		// roughly: exec "python foofile.py"
 		Process p = Runtime.getRuntime().exec("R -f " + R_OUTPUT);
@@ -59,15 +59,21 @@ public class RLanguageMLExecutor extends MLExecutor {
 		BufferedReader stdError = new BufferedReader(new 
 				InputStreamReader(p.getErrorStream()));
 	
+		String result = "";
+		
 		String o;
 		while ((o = stdInput.readLine()) != null) {
-			System.out.println(o);
+			result += o;
+			// System.out.println(o);
 		}
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {
-			System.out.println(err);
+			result += err;
+			// System.out.println(err);
 		}
+		
+		return new MLResult(result);
 
 	}
 

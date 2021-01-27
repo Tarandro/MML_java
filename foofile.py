@@ -13,8 +13,8 @@ df = pd.read_csv("iris.csv")
 
 
 # Spliting dataset between features (X) and label (y)
-X = df.drop(columns=["variety"])
-y = df["variety"]
+X = df.drop(columns=["varietyyy"])
+y = df["varietyyy"]
 
 # pandas dataframe operations :
 #     https://pandas.pydata.org/pandas-docs/stable/reference/frame.html

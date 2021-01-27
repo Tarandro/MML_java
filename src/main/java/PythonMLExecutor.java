@@ -82,7 +82,7 @@ public class PythonMLExecutor extends MLExecutor {
 
 	}
 
-	public void run() throws IOException {
+	public MLResult run() throws IOException {
 		// execute the generated Python code
 		// roughly: exec "python foofile.py"
 		Process p = Runtime.getRuntime().exec("python3 " + PYTHON_OUTPUT);
@@ -94,16 +94,22 @@ public class PythonMLExecutor extends MLExecutor {
 		// error
 		BufferedReader stdError = new BufferedReader(new 
 				InputStreamReader(p.getErrorStream()));
+		
+		String result = "";
 	
 		String o;
 		while ((o = stdInput.readLine()) != null) {
-			System.out.println(o);
+			result += o;
+			// System.out.println(o);
 		}
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {
-			System.out.println(err);
+			result += err;
+			// System.out.println(err);
 		}
+		
+		return new MLResult(result);
 
 	}
 

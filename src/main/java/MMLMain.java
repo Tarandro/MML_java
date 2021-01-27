@@ -17,7 +17,7 @@ public class MMLMain {
 		// System.err.println(args[0]);
 		// System.err.println(args[1]);
 		
-		TargetLanguage tl = TargetLanguage.R; // TargetLanguage.PYTHON; // 
+		TargetLanguage tl = TargetLanguage.PYTHON; // 
 		
 		
 		String str = Files.readString(Paths.get("mml.json"));
