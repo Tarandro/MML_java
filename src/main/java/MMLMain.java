@@ -20,19 +20,38 @@ public class MMLMain {
 		TargetLanguage tl = TargetLanguage.PYTHON; // TargetLanguage.PYTHON; // 
 		
 		
-		//String str = Files.readString(Paths.get("mml.json"));
+		String str = Files.readString(Paths.get("mml.json"));
+		
+		
+		// String str = "{ \"file_path\": \"iris.csv\", \"target\": 'variety' }";
 		
 		/*
-		String str = "{ \"file_path\": \"iris.csv\", \"target\": 'variety' }";
+		String str = "{\n"
+				+ " \"dataset\": {\n"
+				+ "   \"filename\" : \"iris.csv\",\n"
+				+ "   \"separator\" : \",\"\n"
+				+ " },\n"
+				+ " \"training\": 70,\n"
+				+ " \"testing\": 30, \n"
+				+ " \"target_variable\": \"species\",\n"
+				+ " \"metrics\" : [\"accuracy\", \"precision\"]\n"
+				+ "  \n"
+				+ "}";
+				*/
+		
 		JSONObject obj = new JSONObject(str);
-		String f = obj.getString("file_path");
-		String t = obj.getString("target");
+		JSONObject d = (JSONObject) obj.get("dataset");
+		String f = d.getString("filename");
+		// String f = obj.getString("file_path"); // args[0]
+		String t = obj.getString("target_variable"); // args[1]
+		int training_size = obj.getInt("training"); // TODO
 		ConfigurationML configuration = new ConfigurationML(f, t);
-		*/
+		
 		
 		
 		// TODO: instead of command line arguments, we will use JSON files to configure the compilers
-		ConfigurationML configuration = new ConfigurationML(args[0], args[1]);
+		// YAML, JSON, XML, etc.
+		//ConfigurationML configuration = new ConfigurationML(args[0], args[1]);
 		MLExecutor ex = null;
 		
 		

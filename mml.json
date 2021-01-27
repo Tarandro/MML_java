@@ -1,4 +1,11 @@
 {
-"file_path" : "iris.csv",
-"target" : "variety"
+ "dataset": {
+   "filename" : "iris.csv",
+   "separator" : ","
+ },
+ "training": 70,
+ "testing": 30, 
+ "target_variable": "species",
+ "metrics" : ["accuracy", "precision"]
+  
 }
