@@ -5,7 +5,7 @@
  },
  "training": 70,
  "testing": 30, 
- "target_variable": "species",
+ "target_variable": "variety",
  "metrics" : ["accuracy", "precision"]
   
 }
