@@ -6,8 +6,9 @@ public class MMLPythonTest {
 	@Test
 	public void testPython1() throws Exception {
 		
-		MLExecutor ex = new PythonMLExecutor();
-		ex.generateCode("iris.csv", "variety");
+		ConfigurationML conf = new ConfigurationML("iris.csv", "variety");
+		MLExecutor ex = new PythonMLExecutor(conf);
+		ex.generateCode();
 		ex.run();	
 		// TODO: check assertions over return value (eg it is indeed a float value)
 		
@@ -15,9 +16,9 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testPython2() throws Exception {
-		
-		MLExecutor ex = new PythonMLExecutor();
-		ex.generateCode("iris.csv", "varietyyy");
+		ConfigurationML conf = new ConfigurationML("iris.csv", "variety");
+		MLExecutor ex = new PythonMLExecutor(conf);
+		ex.generateCode();
 		ex.run();	
 		// TODO: should raise an exception
 		

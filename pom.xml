@@ -22,5 +22,11 @@
 	    <artifactId>guava</artifactId>
 	    <version>30.1-jre</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20200518</version>
+	</dependency>	
   </dependencies>
 </project>

@@ -7,10 +7,19 @@ import com.google.common.io.Files;
 
 public class PythonMLExecutor extends MLExecutor {
 	
-	private final String PYTHON_OUTPUT = "foofile.py";	
+	private final String PYTHON_OUTPUT = "foofile.py";
+	
+	public PythonMLExecutor(ConfigurationML configuration) {
+		this.configuration = configuration;
+	}
 
 	// TODO: refactoring of the code is needed since anti-pattern/bad smell https://fr.wikipedia.org/wiki/Code_smell#Long_Parameter_List
-	public void generateCode(String file_path, String target) throws IOException {
+	public void generateCode() throws IOException {
+		
+		String file_path = configuration.getFilePath();
+		String target = configuration.getTarget();
+		
+				
 		// Python code 
 		String pythonCode = "import pandas as pd\n"
 				+ "from sklearn.model_selection import train_test_split\n"

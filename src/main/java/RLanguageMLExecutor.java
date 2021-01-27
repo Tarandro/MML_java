@@ -8,8 +8,16 @@ import com.google.common.io.Files;
 public class RLanguageMLExecutor extends MLExecutor {
 
 	private static final String R_OUTPUT = "foofile.R";
+		
+	public RLanguageMLExecutor(ConfigurationML configuration) {
+		this.configuration = configuration;
+	}
 
-	public void generateCode(String file_path, String target) throws IOException {
+	public void generateCode() throws IOException {
+		
+		String file_path = configuration.getFilePath();
+		String target = configuration.getTarget();
+		
 		// R code 
 		String Rcode = "library(rpart)\n"
 				+ "\n"

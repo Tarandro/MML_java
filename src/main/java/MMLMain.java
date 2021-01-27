@@ -1,3 +1,8 @@
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.json.JSONObject;
+
 public class MMLMain {
 
 
@@ -12,13 +17,30 @@ public class MMLMain {
 		// System.err.println(args[0]);
 		// System.err.println(args[1]);
 		
-		TargetLanguage tl = TargetLanguage.PYTHON; // TargetLanguage.R
+		TargetLanguage tl = TargetLanguage.PYTHON; // TargetLanguage.PYTHON; // 
+		
+		
+		//String str = Files.readString(Paths.get("mml.json"));
+		
+		/*
+		String str = "{ \"file_path\": \"iris.csv\", \"target\": 'variety' }";
+		JSONObject obj = new JSONObject(str);
+		String f = obj.getString("file_path");
+		String t = obj.getString("target");
+		ConfigurationML configuration = new ConfigurationML(f, t);
+		*/
+		
+		
+		// TODO: instead of command line arguments, we will use JSON files to configure the compilers
+		ConfigurationML configuration = new ConfigurationML(args[0], args[1]);
 		MLExecutor ex = null;
+		
+		
 		if (tl == TargetLanguage.PYTHON) {			
-			ex = new PythonMLExecutor();				
+			ex = new PythonMLExecutor(configuration);				
 		}		
 		else if (tl == TargetLanguage.R) {			
-			ex = new RLanguageMLExecutor();			
+			ex = new RLanguageMLExecutor(configuration);			
 		}
 		
 		else if (tl == TargetLanguage.JULIA) {
@@ -32,8 +54,8 @@ public class MMLMain {
 			// TODO 
 		}
 		
-		// TODO: instead of command line arguments, we will use JSON files to configure the compilers
-		ex.generateCode(args[0], args[1]);
+		
+		ex.generateCode();
 		ex.run();	
 		
 		

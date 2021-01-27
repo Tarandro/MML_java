@@ -2,7 +2,9 @@ import java.io.IOException;
 
 public abstract class MLExecutor {
 	
-	public abstract void generateCode(String file_path, String target) throws IOException;
+	protected ConfigurationML configuration;
+	
+	public abstract void generateCode() throws IOException;
 	public abstract void run() throws IOException;
 
 }
