@@ -1,7 +1,7 @@
 # multi machine learning (MML)
 
-The goal of this project is to provide high-level facilities to perform machine learning tasks (eg classification).
-The user "just" has to specify a configuration file (in eg JSON) with information about the dataset, the predictive variables, etc. 
+The goal of this project is to provide high-level facilities to perform machine learning tasks (e.g classification).
+The user "just" has to specify a configuration file (in e.g JSON) with information about the dataset, the predictive variables, etc. 
 Then, her specification is compiled in different languages/libraries and can then be executed. 
 In a sense, doing machine learning in a declarative way, without fighting with the cryptic details of off-the-self libraries. 
 
