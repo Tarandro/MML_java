@@ -16,7 +16,7 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testPython2() throws Exception {
-		ConfigurationML conf = new ConfigurationML("iris.csv", "variety");
+		ConfigurationML conf = new ConfigurationML("iris.csv", "varietyyy");
 		MLExecutor ex = new PythonMLExecutor(conf);
 		ex.generateCode();
 		ex.run();	
