@@ -16,7 +16,7 @@ public class MMLPythonTest {
 		// TODO: check assertions over return value (eg it is indeed a float value)
 		//Alexis
 		//Antoine
-		
+		//Alex
 		
 		try {
 			Float.parseFloat(result.getStringResult());
