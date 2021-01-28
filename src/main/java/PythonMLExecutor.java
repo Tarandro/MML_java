@@ -19,6 +19,7 @@ public class PythonMLExecutor extends MLExecutor {
 		String file_path = configuration.getFilePath();
 		String target = configuration.getTarget();
 		float train_size = configuration.getTrainSize();
+		String score = configuration.getScore();
 		
 				
 		// Python code 
@@ -26,6 +27,7 @@ public class PythonMLExecutor extends MLExecutor {
 				+ "from sklearn.model_selection import train_test_split\n"
 				+ "from sklearn import tree\n"
 				+ "from sklearn.metrics import accuracy_score\n"
+				+ "from sklearn.metrics import precision_score\n"
 				+ "\n"
 				+ "# Using pandas to import the dataset\n"
 				+ "df = pd.read_csv(\""+ file_path +"\")\n"
@@ -65,11 +67,14 @@ public class PythonMLExecutor extends MLExecutor {
 				+ "# Use the algorithm to create a model with the training set\n"
 				+ "clf.fit(X_train, y_train)\n"
 				+ "\n"
+				+ "score = \""+score+"\" \n"
 				+ "# Compute and display the accuracy\n"
 				+ "accuracy = accuracy_score(y_test, clf.predict(X_test))\n"
+				+ "precision = precision_score(y_test, clf.predict(X_test), average = 'weighted') \n"
 				+ "\n"
-				+ "print(accuracy)\n"
+				+ "if score == 'accuracy': print('accuracy:' + str(accuracy))\n"
 				+ "\n"
+				+ "elif score == 'precision': print('precision : ' + str(precision))\n"
 				+ "# scikit-learn accuracy_score :\n"
 				+ "#     https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html\n"
 				+ "# Other scikit-learn metrics :\n"

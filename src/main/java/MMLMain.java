@@ -1,6 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 //Antoine
@@ -55,7 +56,9 @@ public class MMLMain {
 		// String f = obj.getString("file_path"); // args[0]
 		String t = obj.getString("target_variable"); // args[1]
 		float train_size = obj.getFloat("training"); // TODO
-		ConfigurationML configuration = new ConfigurationML(f, t, train_size);
+		JSONArray metrics = obj.getJSONArray("metrics");
+		String score = metrics.getString(1);
+		ConfigurationML configuration = new ConfigurationML(f, t, train_size, score);
 		
 		
 		

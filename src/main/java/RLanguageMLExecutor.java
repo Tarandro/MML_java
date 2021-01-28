@@ -17,6 +17,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 		
 		String file_path = configuration.getFilePath();
 		String target = configuration.getTarget();
+		float train_size = configuration.getTrainSize();
 		
 		// R code 
 		String Rcode = "library(rpart)\n"
@@ -24,7 +25,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "dataset = read.csv('"+ file_path +"')\n"
 				+ "\n"
 				+ "# Spliting dataset into training set and test set\n"
-				+ "train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.7)\n"
+				+ "train_ind = sample(1:nrow(dataset), size = nrow(dataset)*" + train_size + ")\n"
 				+ "\n"
 				+ "train = dataset[train_ind, ]\n"
 				+ "X_test = dataset[-train_ind, -which(colnames(dataset) ==\""+target+"\")]\n"

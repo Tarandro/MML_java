@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn import tree
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
 
 # Using pandas to import the dataset
 df = pd.read_csv("iris.csv")
@@ -41,11 +42,14 @@ clf = tree.DecisionTreeClassifier()
 # Use the algorithm to create a model with the training set
 clf.fit(X_train, y_train)
 
+score = "precision" 
 # Compute and display the accuracy
 accuracy = accuracy_score(y_test, clf.predict(X_test))
+precision = precision_score(y_test, clf.predict(X_test), average = 'weighted') 
 
-print(accuracy)
+if score == 'accuracy': print('accuracy:' + str(accuracy))
 
+elif score == 'precision': print('precision : ' + str(precision))
 # scikit-learn accuracy_score :
 #     https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html
 # Other scikit-learn metrics :
