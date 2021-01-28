@@ -6,6 +6,7 @@
  "training": 0.7,
  "testing": 0.3, 
  "target_variable": "variety",
- "metrics" : ["accuracy", "precision"]
+ "metrics" : ["accuracy", "precision"],
+ "language" : "Python"
   
 }

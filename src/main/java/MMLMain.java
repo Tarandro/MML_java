@@ -20,7 +20,7 @@ public class MMLMain {
 		// System.err.println(args[0]);
 		// System.err.println(args[1]);
 		
-		TargetLanguage tl = TargetLanguage.PYTHON; // 
+		// TargetLanguage tl = TargetLanguage.PYTHON; // 
 		
 		String str;
 		
@@ -57,7 +57,8 @@ public class MMLMain {
 		String t = obj.getString("target_variable"); // args[1]
 		float train_size = obj.getFloat("training"); // TODO
 		JSONArray metrics = obj.getJSONArray("metrics");
-		String score = metrics.getString(1);
+		String score = metrics.getString(0);
+		String tl = obj.getString("language").toLowerCase();
 		ConfigurationML configuration = new ConfigurationML(f, t, train_size, score);
 		
 		
@@ -68,14 +69,14 @@ public class MMLMain {
 		MLExecutor ex = null;
 		
 		
-		if (tl == TargetLanguage.PYTHON) {			
+		if (tl.matches("python")) {			
 			ex = new PythonMLExecutor(configuration);				
 		}		
-		else if (tl == TargetLanguage.R) {			
+		else if (tl.matches("r")) {			
 			ex = new RLanguageMLExecutor(configuration);			
 		}
 		
-		else if (tl == TargetLanguage.JULIA) {
+		else if (tl.matches("julia")) {
 			// ex = new JuliaMLExecutor();
 			System.err.println("Unsupported target language (TODO)");
 			// TODO
