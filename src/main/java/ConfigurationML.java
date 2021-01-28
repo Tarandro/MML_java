@@ -5,15 +5,18 @@ public class ConfigurationML {
 	private String target; // targeted feature (column name)
 	private float train_size;
 	private String score;
+	private int max_depth;
 	
 	// TODO
 	private DataSet data;
 	
-	public ConfigurationML(String file_path, String target, float train_size, String score) {
+	public ConfigurationML(String file_path, String target, float train_size, String score, int max_depth) {
 		this.file_path = file_path;
 		this.target = target;
 		this.train_size = train_size;
 		this.score = score;
+		this.max_depth = max_depth;
+		
 	}
 	
 	
@@ -31,5 +34,8 @@ public class ConfigurationML {
 	
 	public String getScore() {
 		return score;
+	}
+	public int getMaxDepth( ) {
+		return max_depth;
 	}
 }

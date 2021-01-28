@@ -31,9 +31,10 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 #     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection
 
 
+max_depth = 5
 # Set algorithm to use
-clf = tree.DecisionTreeClassifier()
-
+clf = tree.DecisionTreeClassifier(max_depth = max_depth)
+print(clf)
 # scikit-learn DecisionTreeClassifier :
 #     https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier
 # Other scikit-learn tree algorithms :

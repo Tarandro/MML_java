@@ -58,7 +58,9 @@ public class MMLMain {
 		float train_size = obj.getFloat("training"); // TODO
 		JSONArray metrics = obj.getJSONArray("metrics");
 		String score = metrics.getString(1);
-		ConfigurationML configuration = new ConfigurationML(f, t, train_size, score);
+		JSONArray max_depth = obj.getJSONArray("max_depth");
+		int max_depth_value = max_depth.getInt(2);
+		ConfigurationML configuration = new ConfigurationML(f, t, train_size, score, max_depth_value);
 		
 		
 		

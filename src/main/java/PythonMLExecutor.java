@@ -20,6 +20,7 @@ public class PythonMLExecutor extends MLExecutor {
 		String target = configuration.getTarget();
 		float train_size = configuration.getTrainSize();
 		String score = configuration.getScore();
+		int max_depth = configuration.getMaxDepth();
 		
 				
 		// Python code 
@@ -56,8 +57,10 @@ public class PythonMLExecutor extends MLExecutor {
 				+ "#     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection\n"
 				+ "\n"
 				+ "\n"
+				+ "max_depth = " + max_depth + "\n"
 				+ "# Set algorithm to use\n"
-				+ "clf = tree.DecisionTreeClassifier()\n"
+				+ "clf = tree.DecisionTreeClassifier(max_depth = max_depth)\n"
+				+ "print(clf)"
 				+ "\n"
 				+ "# scikit-learn DecisionTreeClassifier :\n"
 				+ "#     https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier\n"

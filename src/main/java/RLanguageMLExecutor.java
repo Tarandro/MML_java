@@ -18,6 +18,8 @@ public class RLanguageMLExecutor extends MLExecutor {
 		String file_path = configuration.getFilePath();
 		String target = configuration.getTarget();
 		float train_size = configuration.getTrainSize();
+		String score = configuration.getScore();
+		int max_depth = configuration.getMaxDepth();
 		
 		// R code 
 		String Rcode = "library(rpart)\n"
@@ -31,12 +33,16 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "X_test = dataset[-train_ind, -which(colnames(dataset) ==\""+target+"\")]\n"
 				+ "y_test = as.factor(dataset[-train_ind, which(colnames(dataset) ==\""+target+"\")])\n"
 				+ "\n"
-				+ "model = rpart(formula = "+target+"~., data = train)\n"
+				+ "model = rpart(formula = "+target+"~., data = train, control = rpart.control(maxdepth =" + max_depth + ")\n"
 				+ "\n"
 				+ "pred = predict(model, X_test, type = 'class')\n"
 				+ "\n"
+				+ "score = \""+score+"\" \n"
 				+ "acc = sum(pred == y_test)/length(y_test)\n"
-				+ "print(acc)\n"
+				+ "precision = Precision(y_test, pred) \n"
+				+ "if (score == 'accuracy') {print(accuracy)}\n"
+				+ "elif (score == 'precision') {print(precision)} \n"
+				+ "print(precision)\n"
 				+ "";
 		
 		// serialize code into Python filename
