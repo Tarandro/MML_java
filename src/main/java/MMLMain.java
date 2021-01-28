@@ -19,8 +19,16 @@ public class MMLMain {
 		
 		TargetLanguage tl = TargetLanguage.PYTHON; // 
 		
+		String str;
 		
-		String str = Files.readString(Paths.get("mml.json"));
+		if(args.length == 0)
+		   {
+			str = Files.readString(Paths.get("mml.json"));
+		} else {
+			str = Files.readString(Paths.get(args[0]));
+					}
+		
+		
 		
 		
 		// String str = "{ \"file_path\": \"iris.csv\", \"target\": 'variety' }";
@@ -75,7 +83,10 @@ public class MMLMain {
 		
 		
 		ex.generateCode();
-		ex.run();	
+		MLResult result = ex.run();
+		System.out.println(result.getStringResult());
+				
+		//ex.run();	
 		
 		
 		

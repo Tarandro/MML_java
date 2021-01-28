@@ -101,7 +101,7 @@ public class PythonMLExecutor extends MLExecutor {
 		String o;
 		while ((o = stdInput.readLine()) != null) {
 			result += o;
-			// System.out.println(o);
+			// System.out.println(o); //comment or not
 		}
 	
 		String err; 
