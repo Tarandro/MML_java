@@ -19,7 +19,7 @@ public class MMLPythonTest {
 		try {
 			assertTrue(result.getStringResult().contains("accuracy"));
 		}
-		catch (Exception e) {
+		catch (AssertionError e) {
 			fail("not the good scoring");
 		}
 		
@@ -36,10 +36,9 @@ public class MMLPythonTest {
 		System.out.println(result.getStringResult());
 		
 		try {
-			assertFalse(result.getStringResult().contains("accuracy"));
-			fail("issue here!");
+			assertTrue(result.getStringResult().contains("accuracy"));
 		}
-		catch (Exception e) {
+		catch (AssertionError e) {
 			assertTrue(true);
 		}
 		
@@ -55,10 +54,10 @@ public class MMLPythonTest {
 		System.out.println(result.getStringResult());
 		
 		try {
-			Float.parseFloat(result.getStringResult());			
+			assertTrue(result.getStringResult().contains("accuracy"));		
 		}
-		catch (Exception e) {
-			fail("issue here!");
+		catch (AssertionError e) {
+			fail("not the good scoring");
 		}
 		
 	}
