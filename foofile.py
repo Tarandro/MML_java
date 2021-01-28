@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 
 # Using pandas to import the dataset
-df = pd.read_csv("iris.csv")
+df = pd.read_csv("churn_dataset.csv")
 
 # Learn more on pandas read_csv :
 #     https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
@@ -14,15 +14,15 @@ df = pd.read_csv("iris.csv")
 
 
 # Spliting dataset between features (X) and label (y)
-X = df.drop(columns=["varietyyy"])
-y = df["varietyyy"]
+X = df.drop(columns=["Exited"])
+y = df["Exited"]
 
 # pandas dataframe operations :
 #     https://pandas.pydata.org/pandas-docs/stable/reference/frame.html
 
 
 # Spliting dataset into training set and test set
-test_size = 1 - 0.5
+test_size = 1 - 0.8
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 
 # scikit-learn train_test_split :

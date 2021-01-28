@@ -26,6 +26,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "library(MLmetrics, quietly = TRUE, warn.conflicts = FALSE)\n"
 				+ "\n"
 				+ "dataset = read.csv('"+ file_path +"')\n"
+				+ "dataset[,'"+target+"'] = as.factor(dataset[,'"+target+"'])\n"
 				+ "\n"
 				+ "# Spliting dataset into training set and test set\n"
 				+ "train_ind = sample(1:nrow(dataset), size = nrow(dataset)*" + train_size + ")\n"
@@ -41,7 +42,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "score = \""+score+"\" \n"
 				+ "acc = sum(pred == y_test)/length(y_test)\n"
 				+ "precision = Precision(y_test, pred) \n"
-				+ "if (score == 'accuracy') {print(acc)} else if (score == 'precision') {print(precision)} \n"
+				+ "if (score == 'accuracy') {print(paste('accuracy :',acc))} else if (score == 'precision') {print(paste('precision :',precision))} \n"
 				+ "";
 		
 		// serialize code into Python filename
@@ -55,7 +56,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 	public MLResult run() throws IOException {
 		// execute the generated Python code
 		// roughly: exec "python foofile.py"
-		Process p = Runtime.getRuntime().exec("R -f " + R_OUTPUT);
+		Process p = Runtime.getRuntime().exec("R --slave -f " + R_OUTPUT);
 	
 		// output
 		BufferedReader stdInput = new BufferedReader(new 

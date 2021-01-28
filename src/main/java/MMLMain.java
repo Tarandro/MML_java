@@ -56,7 +56,7 @@ public class MMLMain {
 		String t = obj.getString("target_variable"); // args[1]
 		float train_size = obj.getFloat("training"); // TODO
 		JSONArray metrics = obj.getJSONArray("metrics");
-		String score = metrics.getString(0);
+		String score = metrics.getString(1);
 		JSONArray max_depth = obj.getJSONArray("max_depth");
 		int max_depth_value = max_depth.getInt(2);
 		String tl = obj.getString("language").toLowerCase();
@@ -96,11 +96,7 @@ public class MMLMain {
 		//ex.run();	
 		
 		
-		
-		
 
-		
-		
 
 	}
 
