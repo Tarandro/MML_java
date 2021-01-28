@@ -14,13 +14,14 @@ public class MMLPythonTest {
 		ex.generateCode();
 		MLResult result = ex.run();	// instead of "void" we get an instance of MLResult
 		// TODO: check assertions over return value (eg it is indeed a float value)
+		//Alexis
 		
 		
 		try {
 			Float.parseFloat(result.getStringResult());
 		}
 		catch (Exception e) {
-			fail("not a float (accuracy)!");
+			fail("not a float (accuracy)!!!!!!");
 		}
 		
 	}
