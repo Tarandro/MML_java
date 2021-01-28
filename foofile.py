@@ -13,15 +13,15 @@ df = pd.read_csv("iris.csv")
 
 
 # Spliting dataset between features (X) and label (y)
-X = df.drop(columns=["varietyyy"])
-y = df["varietyyy"]
+X = df.drop(columns=["variety"])
+y = df["variety"]
 
 # pandas dataframe operations :
 #     https://pandas.pydata.org/pandas-docs/stable/reference/frame.html
 
 
 # Spliting dataset into training set and test set
-test_size = 0.3
+test_size = 1 - 0.7
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 
 # scikit-learn train_test_split :
