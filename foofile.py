@@ -43,7 +43,7 @@ print(clf)
 # Use the algorithm to create a model with the training set
 clf.fit(X_train, y_train)
 
-score = "precision" 
+score = "accuracy" 
 # Compute and display the accuracy
 accuracy = accuracy_score(y_test, clf.predict(X_test))
 precision = precision_score(y_test, clf.predict(X_test), average = 'weighted') 

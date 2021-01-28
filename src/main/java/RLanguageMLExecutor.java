@@ -23,6 +23,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 		
 		// R code 
 		String Rcode = "library(rpart)\n"
+				+ "library(MLmetrics, quietly = TRUE, warn.conflicts = FALSE)\n"
 				+ "\n"
 				+ "dataset = read.csv('"+ file_path +"')\n"
 				+ "\n"
@@ -33,16 +34,14 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "X_test = dataset[-train_ind, -which(colnames(dataset) ==\""+target+"\")]\n"
 				+ "y_test = as.factor(dataset[-train_ind, which(colnames(dataset) ==\""+target+"\")])\n"
 				+ "\n"
-				+ "model = rpart(formula = "+target+"~., data = train, control = rpart.control(maxdepth =" + max_depth + ")\n"
+				+ "model = rpart(formula = "+target+"~., data = train, control = rpart.control(maxdepth =" + max_depth + "))\n"
 				+ "\n"
 				+ "pred = predict(model, X_test, type = 'class')\n"
 				+ "\n"
 				+ "score = \""+score+"\" \n"
 				+ "acc = sum(pred == y_test)/length(y_test)\n"
 				+ "precision = Precision(y_test, pred) \n"
-				+ "if (score == 'accuracy') {print(accuracy)}\n"
-				+ "elif (score == 'precision') {print(precision)} \n"
-				+ "print(precision)\n"
+				+ "if (score == 'accuracy') {print(acc)} else if (score == 'precision') {print(precision)} \n"
 				+ "";
 		
 		// serialize code into Python filename
