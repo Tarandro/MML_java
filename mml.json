@@ -3,8 +3,8 @@
    "filename" : "iris.csv",
    "separator" : ","
  },
- "training": 70,
- "testing": 30, 
+ "training": 0.7,
+ "testing": 0.3, 
  "target_variable": "variety",
  "metrics" : ["accuracy", "precision"]
   

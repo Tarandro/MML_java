@@ -44,8 +44,8 @@ public class MMLMain {
 		String f = d.getString("filename");
 		// String f = obj.getString("file_path"); // args[0]
 		String t = obj.getString("target_variable"); // args[1]
-		int training_size = obj.getInt("training"); // TODO
-		ConfigurationML configuration = new ConfigurationML(f, t);
+		float train_size = obj.getFloat("training"); // TODO
+		ConfigurationML configuration = new ConfigurationML(f, t, train_size);
 		
 		
 		

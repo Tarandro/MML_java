@@ -18,6 +18,7 @@ public class PythonMLExecutor extends MLExecutor {
 		
 		String file_path = configuration.getFilePath();
 		String target = configuration.getTarget();
+		float train_size = configuration.getTrainSize();
 		
 				
 		// Python code 
@@ -44,7 +45,7 @@ public class PythonMLExecutor extends MLExecutor {
 				+ "\n"
 				+ "\n"
 				+ "# Spliting dataset into training set and test set\n"
-				+ "test_size = 0.3\n"
+				+ "test_size = 1 - " + train_size + "\n"
 				+ "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)\n"
 				+ "\n"
 				+ "# scikit-learn train_test_split :\n"
