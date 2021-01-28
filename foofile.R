@@ -4,7 +4,7 @@ library(MLmetrics, quietly = TRUE, warn.conflicts = FALSE)
 dataset = read.csv('iris.csv')
 
 # Spliting dataset into training set and test set
-train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.7)
+train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.3)
 
 train = dataset[train_ind, ]
 X_test = dataset[-train_ind, -which(colnames(dataset) =="variety")]

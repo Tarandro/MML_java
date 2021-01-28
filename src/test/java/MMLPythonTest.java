@@ -10,7 +10,7 @@ public class MMLPythonTest {
 	@Test
 	public void testPython1() throws Exception {
 		
-		ConfigurationML conf = new ConfigurationML("iris.csv", "variety", (float) 0.5, "accuracy");
+		ConfigurationML conf = new ConfigurationML("iris.csv", "variety", (float) 0.5, "accuracy", 5);
 		MLExecutor ex = new PythonMLExecutor(conf);
 		ex.generateCode();
 		MLResult result = ex.run();	// instead of "void" we get an instance of MLResult
@@ -27,7 +27,7 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testPython2() throws Exception {
-		ConfigurationML conf = new ConfigurationML("iris.csv", "varietyyy", (float) 0.5, "accuracy");
+		ConfigurationML conf = new ConfigurationML("iris.csv", "varietyyy", (float) 0.5, "accuracy", 5);
 		MLExecutor ex = new PythonMLExecutor(conf);
 		ex.generateCode();
 		MLResult result = ex.run();	
@@ -47,7 +47,7 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testR1() throws Exception {
-		ConfigurationML conf = new ConfigurationML("iris.csv", "variety", (float) 0.3, "accuracy");
+		ConfigurationML conf = new ConfigurationML("iris.csv", "variety", (float) 0.3, "accuracy", 5);
 		MLExecutor ex = new RLanguageMLExecutor(conf);
 		ex.generateCode();
 		MLResult result = ex.run();	
