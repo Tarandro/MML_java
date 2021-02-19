@@ -63,7 +63,6 @@ public class MMLMain {
 		ConfigurationML configuration = new ConfigurationML();
 		configuration.setFilePath(f);
 		configuration.setTarget(t);
-		configuration.setTrainSize(train_size);
 		configuration.setScore(score);
 		configuration.setMaxDepth(max_depth_value);
 		

@@ -22,7 +22,7 @@ y = df["variety"]
 
 
 # Spliting dataset into training set and test set
-test_size = 1 - 0.7
+test_size = 1 - 0.8
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 
 # scikit-learn train_test_split :

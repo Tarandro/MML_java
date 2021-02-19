@@ -1,6 +1,10 @@
 
 public class ConfigurationML {
 	
+	private static final float DEFAULT_TRAIN_SIZE = 0.8f;
+	private static final int DEFAULT_MAX_DEPTH = 5;
+	private static final String DEFAULT_SCORE = "accuracy";
+	
 	private String file_path; // dataset
 	private String target; // targeted feature (column name)
 	private float train_size;
@@ -13,11 +17,12 @@ public class ConfigurationML {
 	public ConfigurationML() {
 		this.file_path = null;
 		this.target = null;
-		this.train_size = 0;
-		this.score = null;
-		this.max_depth = 0;
+		this.train_size = DEFAULT_TRAIN_SIZE;
+		this.score = DEFAULT_SCORE;
+		this.max_depth = DEFAULT_MAX_DEPTH;
 		
 	}
+	
 	
 	public void setFilePath(String file_path) {
 		this.file_path = file_path;
