@@ -10,15 +10,34 @@ public class ConfigurationML {
 	// TODO
 	private DataSet data;
 	
-	public ConfigurationML(String file_path, String target, float train_size, String score, int max_depth) {
-		this.file_path = file_path;
-		this.target = target;
-		this.train_size = train_size;
-		this.score = score;
-		this.max_depth = max_depth;
+	public ConfigurationML() {
+		this.file_path = null;
+		this.target = null;
+		this.train_size = 0;
+		this.score = null;
+		this.max_depth = 0;
 		
 	}
 	
+	public void setFilePath(String file_path) {
+		this.file_path = file_path;
+	}
+	
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	
+	public void setTrainSize(float train_size) {
+		this.train_size = train_size;
+	}
+	
+	public void setScore(String score) {
+		this.score = score;
+	}
+	
+	public void setMaxDepth(int max_depth) {
+		this.max_depth = max_depth;
+	}
 	
 	public String getFilePath() {
 		return file_path;

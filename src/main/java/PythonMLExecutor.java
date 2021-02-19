@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.LinkedList;
 
 import com.google.common.io.Files;
 
@@ -92,6 +94,8 @@ public class PythonMLExecutor extends MLExecutor {
 	}
 
 	public MLResult run() throws IOException {
+		String target = configuration.getTarget();
+		
 		// execute the generated Python code
 		// roughly: exec "python foofile.py"
 		Process p = Runtime.getRuntime().exec("python3 " + PYTHON_OUTPUT);
@@ -107,10 +111,13 @@ public class PythonMLExecutor extends MLExecutor {
 		String result = "";
 	
 		String o;
+		LinkedList<String> listStrings = new LinkedList<String>();
+		
 		while ((o = stdInput.readLine()) != null) {
-			result += o;
-			// System.out.println(o); //comment or not
+			listStrings.add(o);
+			//System.out.println(o); //comment or not
 		}
+		result += listStrings.getLast(); //permet de ne garder que la ligne avec la métrique
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {

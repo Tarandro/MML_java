@@ -60,7 +60,12 @@ public class MMLMain {
 		JSONArray max_depth = obj.getJSONArray("max_depth");
 		int max_depth_value = max_depth.getInt(2);
 		String tl = obj.getString("language").toLowerCase();
-		ConfigurationML configuration = new ConfigurationML(f, t, train_size, score, max_depth_value);
+		ConfigurationML configuration = new ConfigurationML();
+		configuration.setFilePath(f);
+		configuration.setTarget(t);
+		configuration.setTrainSize(train_size);
+		configuration.setScore(score);
+		configuration.setMaxDepth(max_depth_value);
 		
 		
 		
