@@ -52,8 +52,13 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testPython3() throws Exception {
-		ConfigurationML conf = new ConfigurationML("churn_dataset.csv", "Exited", (float) 0.8, "accuracy", 5);
-		MLExecutor ex = new PythonMLExecutor(conf);
+		ConfigurationML configuration = new ConfigurationML();
+		configuration.setFilePath("churn_dataset.csv");
+		configuration.setTarget("Exited");
+		configuration.setTrainSize((float)0.7);
+		configuration.setScore("accuracy");
+		configuration.setMaxDepth(5);
+		MLExecutor ex = new PythonMLExecutor(configuration);
 		ex.generateCode();
 		MLResult result = ex.run();	
 		// TODO: should raise an exception

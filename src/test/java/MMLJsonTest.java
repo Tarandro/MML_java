@@ -12,7 +12,7 @@ public class MMLJsonTest {
 	
 	@Test
 	public void testJson1() throws Exception {
-		String str = Files.readString(Paths.get("mml_test1.json")); //mettre un fichier json pour le test
+		String str = Files.readString(Paths.get("mml_test1.json")); //le json n'a pas de champ filename
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
@@ -27,7 +27,7 @@ public class MMLJsonTest {
 	
 	@Test
 	public void testJson2() throws Exception {
-		String str = Files.readString(Paths.get("mml_test2.json")); //mettre un 2e fichier json pour le test
+		String str = Files.readString(Paths.get("mml_test2.json")); //le json a un champ filename vide
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
