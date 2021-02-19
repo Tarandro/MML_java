@@ -1,0 +1,12 @@
+{
+ "dataset": {
+	"filename" : "iris.csv",
+   "separator" : ","
+ },
+ "training": 0.7,
+ "target_variable": "variety",
+ "metrics" : ["accuracy", "precision"],
+ "max_depth" : [2,3,5,10,20],
+ "language" : "C++"
+  
+}
