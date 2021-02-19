@@ -14,15 +14,15 @@ df = pd.read_csv("iris.csv")
 
 
 # Spliting dataset between features (X) and label (y)
-X = df.drop(columns=["variety"])
-y = df["variety"]
+X = df.drop(columns=["varietyyy"])
+y = df["varietyyy"]
 
 # pandas dataframe operations :
 #     https://pandas.pydata.org/pandas-docs/stable/reference/frame.html
 
 
 # Spliting dataset into training set and test set
-test_size = 1 - 0.8
+test_size = 1 - 0.7
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 
 # scikit-learn train_test_split :
@@ -43,7 +43,7 @@ print(clf)
 # Use the algorithm to create a model with the training set
 clf.fit(X_train, y_train)
 
-score = "precision" 
+score = "accuracy" 
 # Compute and display the accuracy
 accuracy = accuracy_score(y_test, clf.predict(X_test))
 precision = precision_score(y_test, clf.predict(X_test), average = 'weighted') 

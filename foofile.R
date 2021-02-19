@@ -5,7 +5,7 @@ dataset = read.csv('iris.csv')
 dataset[,'variety'] = as.factor(dataset[,'variety'])
 
 # Spliting dataset into training set and test set
-train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.3)
+train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.7)
 
 train = dataset[train_ind, ]
 X_test = dataset[-train_ind, -which(colnames(dataset) =="variety")]

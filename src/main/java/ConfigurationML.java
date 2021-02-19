@@ -20,7 +20,6 @@ public class ConfigurationML {
 		this.train_size = DEFAULT_TRAIN_SIZE;
 		this.score = DEFAULT_SCORE;
 		this.max_depth = DEFAULT_MAX_DEPTH;
-		
 	}
 	
 	
@@ -43,6 +42,7 @@ public class ConfigurationML {
 	public void setMaxDepth(int max_depth) {
 		this.max_depth = max_depth;
 	}
+	
 	
 	public String getFilePath() {
 		return file_path;

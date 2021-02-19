@@ -9,9 +9,13 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testPython1() throws Exception {
-		
-		ConfigurationML conf = new ConfigurationML("iris.csv", "variety", (float) 0.5, "accuracy", 5);
-		MLExecutor ex = new PythonMLExecutor(conf);
+		ConfigurationML configuration = new ConfigurationML();
+		configuration.setFilePath("iris.csv");
+		configuration.setTarget("variety");
+		configuration.setTrainSize((float)0.5);
+		configuration.setScore("accuracy");
+		configuration.setMaxDepth(5);
+		MLExecutor ex = new PythonMLExecutor(configuration);
 		ex.generateCode();
 		MLResult result = ex.run();	// instead of "void" we get an instance of MLResult
 		// TODO: check assertions over return value (eg it is indeed a float value)
@@ -27,18 +31,20 @@ public class MMLPythonTest {
 	
 	@Test
 	public void testPython2() throws Exception {
-		ConfigurationML conf = new ConfigurationML("iris.csv", "varietyyy", (float) 0.5, "accuracy", 5);
-		MLExecutor ex = new PythonMLExecutor(conf);
+		ConfigurationML configuration = new ConfigurationML();
+		configuration.setFilePath("iris.csv");
+		configuration.setTarget("varietyyy");
+		configuration.setTrainSize((float)0.7);
+		configuration.setScore("accuracy");
+		configuration.setMaxDepth(5);
+		MLExecutor ex = new PythonMLExecutor(configuration);
 		ex.generateCode();
-		MLResult result = ex.run();	
-		// TODO: should raise an exception
-		
-		System.out.println(result.getStringResult());
 		
 		try {
+			MLResult result = ex.run();
 			assertTrue(result.getStringResult().contains("accuracy"));
 		}
-		catch (AssertionError e) {
+		catch (java.util.NoSuchElementException e) {
 			assertTrue(true);
 		}
 		
@@ -61,26 +67,7 @@ public class MMLPythonTest {
 			fail("not the good scoring");
 		}
 		
-	}
-	
-	@Test
-	public void testR1() throws Exception {
-		ConfigurationML conf = new ConfigurationML("iris.csv", "variety", (float) 0.3, "accuracy", 5);
-		MLExecutor ex = new RLanguageMLExecutor(conf);
-		ex.generateCode();
-		MLResult result = ex.run();	
-	
-		System.out.println(result.getStringResult());
-		
-		try {
-			assertTrue(result.getStringResult().contains("accuracy"));		
-		}
-		catch (AssertionError e) {
-			fail("not the good scoring");
-		}
-		
-	}
-	
+	}	
 	
 
 }
