@@ -1,5 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,9 +66,17 @@ public class MMLMain {
 		String t = obj.getString("target_variable");
 		float train_size = obj.getFloat("training");
 		JSONArray metrics = obj.getJSONArray("metrics");
-		String score = metrics.getString(1);
-		JSONArray max_depth = obj.getJSONArray("max_depth");
-		int max_depth_value = max_depth.getInt(2);
+		//String score = metrics.getString(1);
+		
+		// add one by one name_metric from metrics to list_metrics
+		Set<String> set_metrics = new HashSet<String>();
+		for(int i=0; i<metrics.length(); i++)
+		{
+			set_metrics.add(metrics.getString(i));
+		}
+		
+		//JSONArray max_depth = obj.getJSONArray("max_depth");
+		int max_depth_value = obj.getInt("max_depth");
 		String tl = obj.getString("language").toLowerCase();
 		
 		
@@ -74,7 +84,7 @@ public class MMLMain {
 		configuration.setFilePath(f);
 		configuration.setTarget(t);
 		configuration.setTrainSize(train_size);
-		configuration.setScore(score);
+		configuration.setMetrics(set_metrics);
 		configuration.setMaxDepth(max_depth_value);
 		
 		

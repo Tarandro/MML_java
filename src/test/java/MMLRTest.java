@@ -2,6 +2,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 public class MMLRTest {
@@ -12,7 +15,9 @@ public class MMLRTest {
 		configuration.setFilePath("iris.csv");
 		configuration.setTarget("variety");
 		configuration.setTrainSize((float)0.7);
-		configuration.setScore("accuracy");
+		Set<String> set_metrics = new HashSet<String>();
+		set_metrics.add("accuracy");
+		configuration.setMetrics(set_metrics);
 		configuration.setMaxDepth(5);
 		MLExecutor ex = new RLanguageMLExecutor(configuration);
 		ex.generateCode();

@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Set;
 import java.util.LinkedList;
 
 import com.google.common.io.Files;
@@ -21,7 +22,7 @@ public class PythonMLExecutor extends MLExecutor {
 		String file_path = configuration.getFilePath();
 		String target = configuration.getTarget();
 		float train_size = configuration.getTrainSize();
-		String score = configuration.getScore();
+		Set<String> metrics = configuration.getMetrics();
 		int max_depth = configuration.getMaxDepth();
 		
 				
@@ -29,61 +30,45 @@ public class PythonMLExecutor extends MLExecutor {
 		String pythonCode = "import pandas as pd\n"
 				+ "from sklearn.model_selection import train_test_split\n"
 				+ "from sklearn import tree\n"
-				+ "from sklearn.metrics import accuracy_score\n"
-				+ "from sklearn.metrics import precision_score\n"
+				+ "from sklearn.metrics import classification_report, confusion_matrix\n"
 				+ "\n"
 				+ "# Using pandas to import the dataset\n"
 				+ "df = pd.read_csv(\""+ file_path +"\")\n"
-				+ "\n"
-				+ "# Learn more on pandas read_csv :\n"
-				+ "#     https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html\n"
-				+ "# pandas input in general :\n"
-				+ "#     https://pandas.pydata.org/pandas-docs/stable/reference/io.html\n"
-				+ "\n"
 				+ "\n"
 				+ "# Spliting dataset between features (X) and label (y)\n"
 				+ "X = df.drop(columns=[\""+target+"\"])\n"
 				+ "y = df[\""+target+"\"]\n"
 				+ "\n"
-				+ "# pandas dataframe operations :\n"
-				+ "#     https://pandas.pydata.org/pandas-docs/stable/reference/frame.html\n"
-				+ "\n"
-				+ "\n"
 				+ "# Spliting dataset into training set and test set\n"
 				+ "test_size = 1 - " + train_size + "\n"
 				+ "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)\n"
-				+ "\n"
-				+ "# scikit-learn train_test_split :\n"
-				+ "#     https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html\n"
-				+ "# Other model selection functions :\n"
-				+ "#     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection\n"
 				+ "\n"
 				+ "\n"
 				+ "max_depth = " + max_depth + "\n"
 				+ "# Set algorithm to use\n"
 				+ "clf = tree.DecisionTreeClassifier(max_depth = max_depth)\n"
-				+ "print(clf)"
-				+ "\n"
-				+ "# scikit-learn DecisionTreeClassifier :\n"
-				+ "#     https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier\n"
-				+ "# Other scikit-learn tree algorithms :\n"
-				+ "#     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.tree\n"
-				+ "\n"
 				+ "# Use the algorithm to create a model with the training set\n"
 				+ "clf.fit(X_train, y_train)\n"
 				+ "\n"
-				+ "score = \""+score+"\" \n"
-				+ "# Compute and display the accuracy\n"
-				+ "accuracy = accuracy_score(y_test, clf.predict(X_test))\n"
-				+ "precision = precision_score(y_test, clf.predict(X_test), average = 'weighted') \n"
+				+ "metrics = ['"+String.join("','", metrics)+"'] \n"
+				+ "# Prediction : \n"
+				+ "pred = clf.predict(X_test) \n"
+				+ "cm = confusion_matrix(y_test, pred, labels=y_test.unique()) \n"
+				+ "report = classification_report(y_test, pred, digits = 4, output_dict = True)\n"
 				+ "\n"
-				+ "if score == 'accuracy': print('accuracy:' + str(accuracy))\n"
+				+ "if 'confusion' in metrics: print('confusion matrix:')\n"
+				+ "if 'confusion' in metrics: print(pd.DataFrame(cm, columns = y_test.unique(), index = y_test.unique()))\n"
+				+ "if 'accuracy' in metrics: print('accuracy:' + str(report[\"accuracy\"])) \n"
+				+ "if 'macro_precision' in metrics: print('macro precision : ' + str(report['macro avg']['precision'])) \n"
+				+ "if 'macro_recall' in metrics: print('macro recall : ' + str(report['macro avg']['recall'])) \n"
+				+ "if 'macro_f1' in metrics: print('macro f1 : ' + str(report['macro avg']['f1-score'])) \n"
+				+ "if 'weighted_precision' in metrics: print('weighted precision : ' + str(report['weighted avg']['precision'])) \n"
+				+ "if 'weighted_recall' in metrics: print('weighted recall : ' + str(report['weighted avg']['recall'])) \n"
+				+ "if 'weighted_f1' in metrics: print('weighted f1 : ' + str(report['weighted avg']['f1-score'])) \n"
+				+ "if 'precision' in metrics: print(pd.DataFrame([report[label]['precision'] for label in y_test.unique()], columns = ['precision'], index = y_test.unique())) \n"
+				+ "if 'recall' in metrics: print(pd.DataFrame([report[label]['recall'] for label in y_test.unique()], columns = ['recall'], index = y_test.unique())) \n"
+				+ "if 'f1' in metrics: print(pd.DataFrame([report[label]['f1-score'] for label in y_test.unique()], columns = ['f1-score'], index = y_test.unique())) \n"
 				+ "\n"
-				+ "elif score == 'precision': print('precision : ' + str(precision))\n"
-				+ "# scikit-learn accuracy_score :\n"
-				+ "#     https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html\n"
-				+ "# Other scikit-learn metrics :\n"
-				+ "#     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics\n"
 				+ "";
 
 		// serialize code into Python filename
@@ -117,7 +102,7 @@ public class PythonMLExecutor extends MLExecutor {
 			listStrings.add(o);
 			//System.out.println(o); //comment or not
 		}
-		result += listStrings.getLast(); //permet de ne garder que la ligne avec la métrique
+		result += listStrings;//.getLast(); //permet de ne garder que la ligne avec la métrique
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {
