@@ -4,11 +4,11 @@ from sklearn import tree
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Using pandas to import the dataset
-df = pd.read_csv("churn_dataset.csv")
+df = pd.read_csv("iris.csv")
 
 # Spliting dataset between features (X) and label (y)
-X = df.drop(columns=["Exited"])
-y = df["Exited"]
+X = df.drop(columns=["variety"])
+y = df["variety"]
 
 # Spliting dataset into training set and test set
 test_size = 1 - 0.7
@@ -21,7 +21,7 @@ clf = tree.DecisionTreeClassifier(max_depth = max_depth)
 # Use the algorithm to create a model with the training set
 clf.fit(X_train, y_train)
 
-metrics = ['accuracy'] 
+metrics = ['macro_recall','macro_f1','accuracy','macro_precision'] 
 # Prediction : 
 pred = clf.predict(X_test) 
 cm = confusion_matrix(y_test, pred, labels=y_test.unique()) 

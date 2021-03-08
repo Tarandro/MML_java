@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.concurrent.TimeUnit;
 
 
 public class MMLMain {
@@ -22,6 +23,8 @@ public class MMLMain {
 		// System.err.println(args[1]);
 		
 		// TargetLanguage tl = TargetLanguage.PYTHON; // 
+		
+		long startTime = System.nanoTime();
 		
 		String str;
 		
@@ -151,7 +154,14 @@ public class MMLMain {
 		
 		ex.generateCode();
 		MLResult result = ex.run();
+		
+		long endTime = System.nanoTime();
+		long durationInNano = (endTime - startTime);  //Total execution time in nano seconds
+		long durationInMillis = TimeUnit.NANOSECONDS.toMillis(durationInNano);  //Total execution time in ms
+		
 		System.out.println(result.getStringResult());
+		System.out.println("Execution time: "+ durationInMillis + " ms");
+		
 				
 		//ex.run();	
 		
