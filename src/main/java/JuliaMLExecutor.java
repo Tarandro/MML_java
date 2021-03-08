@@ -27,14 +27,12 @@ public class JuliaMLExecutor extends MLExecutor {
 		
 				
 		// Python code 
-		String pythonCode = "using DataFrames\n"
+		String juliaCode = "using DataFrames\n"
 				+ "using DecisionTree\n"
 				+ "using CSV\n"
 				+ "using StatsBase\n"
-				+ "using ScikitLearn"
-				+ "using DecisionTree\r\n"
-				+ "using Random\r\n"
-				+ "\r\n"
+				+ "using ScikitLearn\n"
+				+ "using Random\n"
 				+ "df = DataFrame(CSV.File(\"" + file_path + "\"))\r\n"
 				+ "\r\n"
 				+ "# split the dataset \r\n"
@@ -63,13 +61,11 @@ public class JuliaMLExecutor extends MLExecutor {
 				+ "# See ScikitLearn.jl for installation instructions\r\n"
 				+ "using ScikitLearn.CrossValidation: cross_val_score\r\n"
 				+ "accuracy = cross_val_score(model, X_test, Y_test, cv=3)\r\n"
-				+ "mean_accuracy = mean(accuracy)"
-				+ "println(mean_accuracy)";
+				+ "println(mean(accuracy))";
 				
 		// serialize code into Julia filename
 				
-		Files.write(pythonCode.getBytes(), new File(JULIA_OUTPUT));
-
+		Files.write(juliaCode.getBytes(), new File(JULIA_OUTPUT));
 
 	}
 
@@ -78,7 +74,7 @@ public class JuliaMLExecutor extends MLExecutor {
 		
 		// execute the generated Julia code
 		// roughly: exec "julia foofile.py"
-		Process p = Runtime.getRuntime().exec("julia " + JULIA_OUTPUT);
+		Process p = Runtime.getRuntime().exec("C:\\Users\\Alex\\AppData\\Local\\Programs\\Julia 1.5.3\\bin\\julia " + JULIA_OUTPUT);
 	
 		// output
 		BufferedReader stdInput = new BufferedReader(new 
