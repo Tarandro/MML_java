@@ -46,13 +46,13 @@ public class MMLPythonTest {
 		configuration.setMaxDepth(5);
 		MLExecutor ex = new PythonMLExecutor(configuration);
 		ex.generateCode();
+		MLResult result = ex.run();
 		
-		try {
-			MLResult result = ex.run();
-			assertTrue(result.getStringResult().contains("accuracy"));
-		}
-		catch (java.util.NoSuchElementException e) {
+		if (result.getStringResult().contains("Traceback (most recent call last)")) {
 			assertTrue(true);
+		}
+		else {
+			fail("Il n'y a pas d'erreur renvoyée par Python");
 		}
 		
 	}

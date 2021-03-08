@@ -27,6 +27,12 @@
 	    <groupId>org.json</groupId>
 	    <artifactId>json</artifactId>
 	    <version>20200518</version>
+	</dependency>
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
 	</dependency>	
+	<!--  org.apache.maven.plugins:maven-surefire-plugin:2.17:test -->
   </dependencies>
 </project>

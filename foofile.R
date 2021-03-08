@@ -1,20 +1,20 @@
 library(rpart)
 
-dataset = read.csv('iris.csv')
-dataset[,'variety'] = as.factor(dataset[,'variety'])
+dataset = read.csv('churn_dataset.csv')
+dataset[,'Exited'] = as.factor(dataset[,'Exited'])
 
 # Spliting dataset into training set and test set
 train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.7)
 
 train = dataset[train_ind, ]
-X_test = dataset[-train_ind, -which(colnames(dataset) =="variety")]
-y_test = as.factor(dataset[-train_ind, which(colnames(dataset) =="variety")])
+X_test = dataset[-train_ind, -which(colnames(dataset) =="Exited")]
+y_test = as.factor(dataset[-train_ind, which(colnames(dataset) =="Exited")])
 
-model = rpart(formula = variety~., data = train, control = rpart.control(maxdepth =5))
+model = rpart(formula = Exited~., data = train, control = rpart.control(maxdepth =5))
 
 pred = pred = as.vector(predict(model, X_test, type = 'class'))
 
-metrics = c('macro_recall','macro_f1','accuracy','macro_precision')
+metrics = c('accuracy')
 
 cm = as.matrix(table(Actual = y_test, Predicted = pred))
 if ('confusion' %in% metrics) {print('confusion matrix :')
