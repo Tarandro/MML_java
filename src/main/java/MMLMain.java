@@ -61,10 +61,34 @@ public class MMLMain {
 		test.language();
 		
 		JSONObject d = (JSONObject) obj.get("dataset");
-		String f = d.getString("filename");
 		
-		String t = obj.getString("target_variable");
-		float train_size = obj.getFloat("training");
+		String f = "";
+		try {
+			f = d.getString("filename");
+			}
+		catch (NullPointerException errFaileName) {
+			System.out.println("Donner un chemin de fichier");
+			}
+		// String f = obj.getString("file_path");
+		String t = "";
+		try {
+			t = obj.getString("target_variable");
+		}
+		catch (NullPointerException errTarget) {
+			System.out.println("Donner un nom de variable cible");
+		}
+		
+		float train_size = (float)0.7;
+		try {
+			train_size = obj.getFloat("training");
+		}
+		catch (NullPointerException errTrainSize) {
+			System.out.println("Donner une taille d'ensemble d'entraînement");
+		}
+		if (train_size > 1 || train_size<0) {
+			throw new IllegalArgumentException("Choisir une taille d'entraînement entre 0 et 1");
+		}
+		
 		JSONArray metrics = obj.getJSONArray("metrics");
 		//String score = metrics.getString(1);
 		
@@ -77,7 +101,18 @@ public class MMLMain {
 		
 		//JSONArray max_depth = obj.getJSONArray("max_depth");
 		int max_depth_value = obj.getInt("max_depth");
-		String tl = obj.getString("language").toLowerCase();
+		
+		
+		String tl = "";
+		try {
+			tl = obj.getString("language").toLowerCase();
+		}
+		catch (NullPointerException errLanguage) {
+			System.out.println("Donner un nom de langage");
+		}
+		if (!(tl.matches("python") || tl.matches("r") || tl.matches("julia"))) {
+			throw new IllegalArgumentException("Choisir Python, R ou Julia");
+		}
 		
 		
 		ConfigurationML configuration = new ConfigurationML();

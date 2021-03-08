@@ -14,7 +14,7 @@ model = rpart(formula = variety~., data = train, control = rpart.control(maxdept
 
 pred = pred = as.vector(predict(model, X_test, type = 'class'))
 
-metrics = c('precision','macro_recall','macro_f1','accuracy')
+metrics = c('macro_recall','macro_f1','accuracy','macro_precision')
 
 cm = as.matrix(table(Actual = y_test, Predicted = pred))
 if ('confusion' %in% metrics) {print('confusion matrix :')
