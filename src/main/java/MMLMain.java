@@ -141,8 +141,8 @@ public class MMLMain {
 		}
 		
 		else if (tl.matches("julia")) {
-			// ex = new JuliaMLExecutor();
-			System.err.println("Unsupported target language (TODO)");
+			ex = new JuliaMLExecutor(configuration);
+			// System.err.println("Unsupported target language (TODO)");
 			// TODO
 			
 		}

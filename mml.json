@@ -7,8 +7,7 @@
  "target_variable": "variety",
  "metrics" : ['accuracy', 'macro_precision', 'macro_recall', 'macro_f1'],
  "max_depth" : 5,
- "language" : "Python"
-  
+ "language" : "julia"
 }
 
 // metrics : ['confusion', 'accuracy', 'macro_precision', 'macro_recall', 'macro_f1', 'weighted_precision', 'weighted_recall', 'weighted_precision',
