@@ -38,7 +38,7 @@ public class MMLPythonTest {
 	public void testPython2() throws Exception {
 		ConfigurationML configuration = new ConfigurationML();
 		configuration.setFilePath("iris.csv");
-		configuration.setTarget("varietyyy");
+		configuration.setTarget("varietyyy"); //non existing variable
 		configuration.setTrainSize((float)0.7);
 		Set<String> set_metrics = new HashSet<String>();
 		set_metrics.add("accuracy");
@@ -60,7 +60,7 @@ public class MMLPythonTest {
 	@Test
 	public void testPython3() throws Exception {
 		ConfigurationML configuration = new ConfigurationML();
-		configuration.setFilePath("churn_dataset.csv");
+		configuration.setFilePath("churn_dataset.csv"); //new dataset
 		configuration.setTarget("Exited");
 		configuration.setTrainSize((float)0.7);
 		Set<String> set_metrics = new HashSet<String>();
@@ -70,7 +70,6 @@ public class MMLPythonTest {
 		MLExecutor ex = new PythonMLExecutor(configuration);
 		ex.generateCode();
 		MLResult result = ex.run();	
-		// TODO: should raise an exception
 		
 		System.out.println(result.getStringResult());
 		

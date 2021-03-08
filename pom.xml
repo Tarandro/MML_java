@@ -3,6 +3,7 @@
   <groupId>MMLFirst</groupId>
   <artifactId>MMLFirst</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -13,6 +14,42 @@
           <release>11</release>
         </configuration>
       </plugin>
+      <plugin>
+      <!-- definit la classe main -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>MMLMain</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+		</plugin>
+	<plugin>
+	<!-- permet de packager les dependances dans le jar -->
+    <artifactId>maven-assembly-plugin</artifactId>
+    <executions>
+      <execution>
+        <phase>package</phase>
+        <goals>
+          <goal>single</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <archive>
+        <manifest>
+          <addClasspath>true</addClasspath>
+          <mainClass>MMLMain</mainClass>
+        </manifest>
+      </archive>
+      <descriptorRefs>
+        <descriptorRef>jar-with-dependencies</descriptorRef>
+      </descriptorRefs>
+    </configuration>
+  	</plugin>
     </plugins>
   </build>
   <dependencies>
@@ -26,13 +63,12 @@
 	<dependency>
 	    <groupId>org.json</groupId>
 	    <artifactId>json</artifactId>
-	    <version>20200518</version>
+	    <version>20201115</version>
 	</dependency>
 	<dependency>
 	    <groupId>junit</groupId>
 	    <artifactId>junit</artifactId>
 	    <version>4.12</version>
-	</dependency>	
-	<!--  org.apache.maven.plugins:maven-surefire-plugin:2.17:test -->
+	</dependency>
   </dependencies>
 </project>
