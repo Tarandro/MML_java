@@ -174,6 +174,7 @@ public class MMLMain {
 		json_result.put("training", train_size);
 		json_result.put("max_depth", max_depth_value);
 		json_result.put("variant", tl);
+		json_result.put("time_ms", durationInMillis);
 		
 		System.out.print(json_result);
 		
