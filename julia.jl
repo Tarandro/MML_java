@@ -9,9 +9,6 @@ using EvalMetrics
 
 df = DataFrame(CSV.File("iris.csv"))
 
-rename!(df,[:sepal_length, :sepal_width,:petal_length, :petal_width, :variety])
-
-
 # split the dataset 
 sample = randsubseq(1:size(df,1), 0.8)
 train = df[sample, :]
@@ -25,8 +22,6 @@ X_train = train[:, X_names]
 Y_train = train[:, :"variety"]
 X_test = test[:, X_names]
 Y_test = test[:, :"variety"]
-println(length(Y_train))
-println(length(Y_test))
 
 y_train = Int64[]
 for i in 1:length(Y_train)

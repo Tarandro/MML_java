@@ -41,9 +41,6 @@ public class JuliaMLExecutor extends MLExecutor {
 				+ "\r\n"
 				+ "df = DataFrame(CSV.File(\"" + file_path + "\"))\r\n"
 				+ "\r\n"
-				+ "rename!(df,[:sepal_length, :sepal_width,:petal_length, :petal_width, :variety])\r\n"
-				+ "\r\n"
-				+ "\r\n"
 				+ "# split the dataset \r\n"
 				+ "sample = randsubseq(1:size(df,1), 0.8)\r\n"
 				+ "train = df[sample, :]\r\n"
@@ -57,8 +54,6 @@ public class JuliaMLExecutor extends MLExecutor {
 				+ "Y_train = train[:, :\"" + target + "\"]\r\n"
 				+ "X_test = test[:, X_names]\r\n"
 				+ "Y_test = test[:, :\"" + target + "\"]\r\n"
-				+ "println(length(Y_train))\n"
-				+ "println(length(Y_test))\n"
 				+ "\r\n"
 				+ "y_train = Int64[]\r\n"
 				+ "for i in 1:length(Y_train)\r\n"
@@ -149,7 +144,7 @@ public class JuliaMLExecutor extends MLExecutor {
 		
 		// execute the generated Julia code
 		// roughly: exec "julia foofile.py"
-		Process p = Runtime.getRuntime().exec("julia " + JULIA_OUTPUT);
+		Process p = Runtime.getRuntime().exec("\"C:\\Users\\Alex\\AppData\\Local\\Programs\\Julia 1.5.3\\bin\\julia.exe\" " + JULIA_OUTPUT);
 	
 		// output
 		BufferedReader stdInput = new BufferedReader(new 
