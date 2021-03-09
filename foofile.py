@@ -14,7 +14,6 @@ y = df["variety"]
 test_size = 1 - 0.7
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 
-
 max_depth = 5
 # Set algorithm to use
 clf = tree.DecisionTreeClassifier(max_depth = max_depth)
@@ -27,16 +26,21 @@ pred = clf.predict(X_test)
 cm = confusion_matrix(y_test, pred, labels=y_test.unique()) 
 report = classification_report(y_test, pred, digits = 4, output_dict = True)
 
+accuracy = report['accuracy']
+macro_precision = report['macro avg']['precision']
+macro_recall = report['macro avg']['recall']
+macro_f1 = report['macro avg']['f1-score']
+
 if 'confusion' in metrics: print('confusion matrix:')
 if 'confusion' in metrics: print(pd.DataFrame(cm, columns = y_test.unique(), index = y_test.unique()))
-if 'accuracy' in metrics: print('accuracy:' + str(report["accuracy"])) 
-if 'macro_precision' in metrics: print('macro precision : ' + str(report['macro avg']['precision'])) 
-if 'macro_recall' in metrics: print('macro recall : ' + str(report['macro avg']['recall'])) 
-if 'macro_f1' in metrics: print('macro f1 : ' + str(report['macro avg']['f1-score'])) 
+if 'accuracy' in metrics: print('accuracy:' + str(accuracy)) 
+if 'macro_precision' in metrics: print('macro precision : ' + str(macro_precision)) 
+if 'macro_recall' in metrics: print('macro recall : ' + str(macro_recall)) 
+if 'macro_f1' in metrics: print('macro f1 : ' + str(macro_f1)) 
 if 'weighted_precision' in metrics: print('weighted precision : ' + str(report['weighted avg']['precision'])) 
 if 'weighted_recall' in metrics: print('weighted recall : ' + str(report['weighted avg']['recall'])) 
 if 'weighted_f1' in metrics: print('weighted f1 : ' + str(report['weighted avg']['f1-score'])) 
 if 'precision' in metrics: print(pd.DataFrame([report[label]['precision'] for label in y_test.unique()], columns = ['precision'], index = y_test.unique())) 
 if 'recall' in metrics: print(pd.DataFrame([report[label]['recall'] for label in y_test.unique()], columns = ['recall'], index = y_test.unique())) 
 if 'f1' in metrics: print(pd.DataFrame([report[label]['f1-score'] for label in y_test.unique()], columns = ['f1-score'], index = y_test.unique())) 
-
+print('Metrics : accuracy:',accuracy, '/ macro_precision:',macro_precision, '/ macro_recall:',macro_recall, '/ macro_f1:',macro_f1)

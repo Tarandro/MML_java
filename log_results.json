@@ -1,0 +1,1 @@
+{"1":{"max_depth":5,"macro_recall":0.969697,"macro_f1":0.96658313,"variant":"julia","accuracy":0.93939394,"training":0.7,"macro_precision":0.96666664,"dataset":"iris","target":"variety"}}

@@ -40,3 +40,4 @@ if ('macro_f1' %in% metrics) {print(paste('macro f1 :',macroF1))}
 if ('precision' %in% metrics) {print(data.frame(precision))} 
 if ('recall' %in% metrics) {print(data.frame(recall))} 
 if ('f1' %in% metrics) {print(data.frame(f1))} 
+print(paste('Metrics : accuracy:',acc, '/ macro_precision:',macroPrecision, '/ macro_recall:',macroRecall, '/ macro_f1:',macroF1))

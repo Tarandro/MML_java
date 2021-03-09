@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.Set;
+
+import org.json.JSONObject;
 
 import com.google.common.io.Files;
 
@@ -65,6 +68,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "if ('precision' %in% metrics) {print(data.frame(precision))} \n"
 				+ "if ('recall' %in% metrics) {print(data.frame(recall))} \n"
 				+ "if ('f1' %in% metrics) {print(data.frame(f1))} \n"
+				+ "print(paste('Metrics : accuracy:',acc, '/ macro_precision:',macroPrecision, '/ macro_recall:',macroRecall, '/ macro_f1:',macroF1))\n"
 				+ "";
 		
 		// serialize code into Python filename
@@ -91,10 +95,23 @@ public class RLanguageMLExecutor extends MLExecutor {
 		String result = "";
 		
 		String o;
+		LinkedList<String> listStrings = new LinkedList<String>();
+		
+		JSONObject json_result = new JSONObject(); 
+
 		while ((o = stdInput.readLine()) != null) {
-			result += o;
-			// System.out.println(o);
+			listStrings.add(o.replace("\"", "").replace("[1] ", ""));
+			if (!o.contains("Metrics")) {
+				System.out.println(o.replace("\"", "").replace("[1] ", ""));
+			} else {
+				String r = o.replace("\"", "").replace(" ", "").replace("[1]", "").replace("Metrics:", "");
+				String[] split_metrics = r.split("/");
+				for (int i = 0; i < split_metrics.length; i++) {
+					json_result.put(split_metrics[i].split(":")[0], Float.parseFloat(split_metrics[i].split(":")[1]));
+				}
+			}
 		}
+		result += listStrings.getLast();//.getLast(); //permet de ne garder que la ligne avec la métrique
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {
@@ -102,7 +119,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 			// System.out.println(err);
 		}
 		
-		return new MLResult(result);
+		return new MLResult(result, json_result);
 
 	}
 

@@ -1,10 +1,15 @@
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.concurrent.TimeUnit;
 
 
@@ -162,9 +167,43 @@ public class MMLMain {
 		System.out.println(result.getStringResult());
 		System.out.println("Execution time: "+ durationInMillis + " ms");
 		
+		// add some meta information in json_result
+		JSONObject json_result = result.getJSONResult();
+		json_result.put("dataset", f.replace(".csv", ""));
+		json_result.put("target", t);
+		json_result.put("training", train_size);
+		json_result.put("max_depth", max_depth_value);
+		json_result.put("variant", tl);
+		
+		System.out.print(json_result);
+		
+		Path path = Paths.get("./log_results.json");
+		
+		// if file exist, add json_result to file with key : length(log_results) + 1
+	    if (Files.exists(path)) {
+	    	String log_results_str = Files.readString(Paths.get("log_results.json"));
+			JSONObject log_results = new JSONObject(log_results_str);
+				
+			log_results.put(String.valueOf(log_results.length()+1), json_result);
+			
+			FileWriter file = new FileWriter("./log_results.json");
+		    file.write(log_results.toString());
+		    file.flush();
+		    file.close();
+		// if not, create a json file and add json_result with key = 1
+	    }else{
+	    	JSONObject log_results = new JSONObject();
+			log_results.put("1", json_result);
+			
+			FileWriter file = new FileWriter("./log_results.json");
+		    file.write(log_results.toString());
+		    file.flush();
+		    file.close();
+
+	    }
+	   
 				
 		//ex.run();	
-		
 		
 
 

@@ -5,7 +5,7 @@ using StatsBase
 using ScikitLearn
 using DecisionTree
 using Random
-using MLBase
+using EvalMetrics
 
 df = DataFrame(CSV.File("iris.csv"))
 
@@ -74,15 +74,38 @@ fit!(model, X_train, y_train)
 using ScikitLearn.CrossValidation: cross_val_score
 accuracy = cross_val_score(model, X_test, y_test, cv=3)
 mean_accuracy = mean(accuracy)
+print("accuracy : "*string(mean_accuracy)*"
+")
 
 using ScikitLearn: predict
 pred = predict(model, X_test)
 
-using MLBase: roc
-r = roc(y_test, pred)
+using EvalMetrics:ConfusionMatrix
+using EvalMetrics:precision
+using EvalMetrics:recall
+using EvalMetrics:f1_score
 
-recall = recall(r)
+recall_list = Float64[]
+precision_list = Float64[]
+f1score_list = Float64[]
+for i in unique(y_test)
+    predi = ifelse.(pred .== i, 1, 0)
+    y_testi = ifelse.(y_test .== i, 1, 0)
+    cmi = ConfusionMatrix(y_testi, predi)
+    append!(recall_list, recall(cmi))
+    append!(precision_list, precision(cmi))
+    append!(f1score_list, f1_score(cmi))
+end
 
-precision = precision(r)
+macro_recall = mean(recall_list)
+print("macro_recall : "*string(macro_recall)*"
+")
 
-f1score = f1score(r)
+macro_precision = mean(precision_list)
+print("macro_precision : "*string(macro_precision)*"
+")
+
+macro_f1 = mean(f1score_list)
+print("macro_f1 : "*string(macro_f1)*"
+")
+print("Metrics : accuracy: "*string(mean_accuracy)*" / macro_precision: "*string(macro_precision)*" / macro_recall: "*string(macro_recall)*" / macro_f1: "*string(macro_f1))
