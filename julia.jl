@@ -6,7 +6,7 @@ using ScikitLearn
 using DecisionTree
 using Random
 using EvalMetrics
-
+using MLLabelUtils
 df = DataFrame(CSV.File("iris.csv"))
 
 # split the dataset 
@@ -22,33 +22,15 @@ X_train = train[:, X_names]
 Y_train = train[:, :"variety"]
 X_test = test[:, X_names]
 Y_test = test[:, :"variety"]
-
+Y_enc = labelenc(df[:, :variety])
 y_train = Int64[]
 for i in 1:length(Y_train)
-    if Y_train[i] === "Setosa"
-        append!(y_train, 0)
-    end
-    if Y_train[i] === "Versicolor"
-        append!(y_train, 1)
-    end
-    if Y_train[i] === "Virginica"
-        append!(y_train, 2)
-    end
+    append!(y_train, label2ind(Y_train[i], Y_enc))
 end
-
 y_test = Int64[]
 for i in 1:length(Y_test)
-    if Y_test[i] === "Setosa"
-        append!(y_test, 0)
-    end
-    if Y_test[i] === "Versicolor"
-        append!(y_test, 1)
-    end
-    if Y_test[i] === "Virginica"
-        append!(y_test, 2)
-    end
+    append!(y_test, label2ind(Y_test[i], Y_enc))
 end
-
 X_train = Matrix(X_train)
 y_train = Array(y_train)
 X_test = Matrix(X_test)
