@@ -127,7 +127,7 @@ public class JuliaMLExecutor extends MLExecutor {
 		
 		// execute the generated Julia code
 		// roughly: exec "julia foofile.py"
-		Process p = Runtime.getRuntime().exec("\"C:\\Users\\Alex\\AppData\\Local\\Programs\\Julia 1.5.3\\bin\\julia.exe\" " + JULIA_OUTPUT);
+		Process p = Runtime.getRuntime().exec("julia " + JULIA_OUTPUT);
 	
 		// output
 		BufferedReader stdInput = new BufferedReader(new 
