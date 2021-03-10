@@ -14,7 +14,7 @@ y_train = df_train["variety"]
 X_test = df_test.drop(columns=["variety"])
 y_test = df_test["variety"]
 
-max_depth = 5
+max_depth = 15
 # Set algorithm to use
 clf = tree.DecisionTreeClassifier(max_depth = max_depth)
 # Use the algorithm to create a model with the training set

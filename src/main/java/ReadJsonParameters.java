@@ -11,7 +11,7 @@ public class ReadJsonParameters {
 	private String target_variable;
 	private float train_size;
 	private Set<String> set_metrics;
-	private int max_depth_value;
+	private Set<Integer> set_max_depth_values;
 	private Set<String> set_languages;
 	
 	public ReadJsonParameters(String string_json) {
@@ -70,8 +70,14 @@ public class ReadJsonParameters {
 		this.set_metrics = set_metrics;
 		
 		
-		//JSONArray max_depth = obj.getJSONArray("max_depth");
-		this.max_depth_value = obj.getInt("max_depth");
+		JSONArray max_depth_values = obj.getJSONArray("max_depth");
+		// add one by one name_metric from metrics to list_metrics
+		Set<Integer> set_max_depth_values = new HashSet<Integer>();
+		for(int i=0; i<max_depth_values.length(); i++)
+		{
+			set_max_depth_values.add(max_depth_values.getInt(i));
+		}
+		this.set_max_depth_values = set_max_depth_values;
 		
 		
 		JSONArray languages = obj.getJSONArray("languages");
@@ -111,8 +117,8 @@ public class ReadJsonParameters {
 		return set_metrics;
 	}
 	
-	public int getMaxDepth() {
-		return max_depth_value;
+	public Set<Integer> getMaxDepthValues() {
+		return set_max_depth_values;
 	}
 	
 	public Set<String> getLanguages() {
