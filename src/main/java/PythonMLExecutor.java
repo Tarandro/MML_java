@@ -120,7 +120,9 @@ public class PythonMLExecutor extends MLExecutor {
 				}
 			}
 		}
-		result += listStrings.getLast();
+		if(listStrings.size() > 0) {
+			result += listStrings.getLast();
+		}
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {

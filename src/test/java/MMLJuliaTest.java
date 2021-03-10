@@ -10,11 +10,10 @@ import java.util.Set;
 import org.json.JSONObject;
 import org.junit.Test;
 
-public class MMLPythonTest {
-	
-	
+public class MMLJuliaTest {
+
 	@Test
-	public void testPython1() throws Exception {
+	public void testJulia1() throws Exception {
 		String string_json = Files.readString(Paths.get("./mml_test/LanguageTest/mml_LanguageTest1.json")); // no error
 		ReadJsonParameters parameters = new ReadJsonParameters(string_json);
 		parameters.read();
@@ -44,7 +43,7 @@ public class MMLPythonTest {
 				
 				for(int i=0; i<repetition; i++){
 									
-					MLExecutor ex = new PythonMLExecutor(configuration);	
+					MLExecutor ex = new JuliaMLExecutor(configuration);	
 					ex.generateCode();
 					MLResult result = ex.run();
 		
@@ -61,7 +60,7 @@ public class MMLPythonTest {
 	}
 	
 	@Test
-	public void testPython2() throws Exception {
+	public void testJulia2() throws Exception {
 		String string_json = Files.readString(Paths.get("./mml_test/LanguageTest/mml_LanguageTest2.json")); // colonne nom non valide
 		ReadJsonParameters parameters = new ReadJsonParameters(string_json);
 		parameters.read();
@@ -91,11 +90,11 @@ public class MMLPythonTest {
 				
 				for(int i=0; i<repetition; i++){
 									
-					MLExecutor ex = new PythonMLExecutor(configuration);	
+					MLExecutor ex = new JuliaMLExecutor(configuration);	
 					ex.generateCode();
 					MLResult result = ex.run();
 		
-					if (result.getStringResult().contains("not found in axis")) {
+					if (result.getStringResult().contains("not found in the data frame")) {
 						assertTrue(true);
 					}
 					else {
@@ -108,7 +107,7 @@ public class MMLPythonTest {
 	}
 	
 	@Test
-	public void testPython3() throws Exception {
+	public void testJulia3() throws Exception {
 		String string_json = Files.readString(Paths.get("./mml_test/LanguageTest/mml_LanguageTest3.json")); // no error & test autre dataset
 		ReadJsonParameters parameters = new ReadJsonParameters(string_json);
 		parameters.read();
@@ -138,7 +137,7 @@ public class MMLPythonTest {
 				
 				for(int i=0; i<repetition; i++){
 									
-					MLExecutor ex = new PythonMLExecutor(configuration);	
+					MLExecutor ex = new JuliaMLExecutor(configuration);	
 					ex.generateCode();
 					MLResult result = ex.run();
 		
@@ -154,6 +153,4 @@ public class MMLPythonTest {
 		}
 		
 	}	
-	
-
 }

@@ -2,6 +2,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,78 +13,144 @@ public class MMLRTest {
 	
 	@Test
 	public void testR1() throws Exception {
-		ConfigurationML configuration = new ConfigurationML();
-		configuration.setFilePath("iris.csv");
-		configuration.setTarget("variety");
-		configuration.setTrainSize((float)0.7);
-		Set<String> set_metrics = new HashSet<String>();
-		set_metrics.add("accuracy");
-		configuration.setMetrics(set_metrics);
-		configuration.setMaxDepth(5);
-		MLExecutor ex = new RLanguageMLExecutor(configuration);
-		ex.generateCode();
-		MLResult result = ex.run();	
-	
-		System.out.println(result.getStringResult());
+		String string_json = Files.readString(Paths.get("./mml_test/LanguageTest/mml_LanguageTest1.json")); // no error
+		ReadJsonParameters parameters = new ReadJsonParameters(string_json);
+		parameters.read();
+		String filename = parameters.getFilemame();
+		String target_variable = parameters.getTargetVariable();
+		Set<Float> set_train_sizes = parameters.getTrainSizes();
+		Set<String> set_metrics = parameters.getMetrics();
+		Set<Integer> set_max_depth_values = parameters.getMaxDepthValues();
+		int repetition = parameters.getRepetition();
 		
-		try {
-			assertTrue(result.getStringResult().contains("accuracy"));		
-		}
-		catch (AssertionError e) {
-			fail("not the good scoring");
+		// set parameters to ConfigurationML
+		ConfigurationML configuration = new ConfigurationML();
+		configuration.setFilePath(filename);
+		configuration.setTarget(target_variable);
+		configuration.setMetrics(set_metrics);
+		
+		for (float train_size : set_train_sizes) {
+			// Split dataset in train/test with traintestsplit script python
+			MLExecutor split = null;
+			configuration.setTrainSize(train_size);
+			split = new TrainTestSplit(configuration);
+			split.generateCode();
+			split.run();
+			
+			for (int max_depth : set_max_depth_values) {
+				configuration.setMaxDepth(max_depth);
+				
+				for(int i=0; i<repetition; i++){
+									
+					MLExecutor ex = new RLanguageMLExecutor(configuration);	
+					ex.generateCode();
+					MLResult result = ex.run();
+		
+					try {
+						assertTrue(result.getStringResult().contains("accuracy"));
+					}
+					catch (AssertionError e) {
+						fail("not the good scoring");
+					}
+				
+				}
+			}
 		}
 		
 	}
 	
 	@Test
 	public void testR2() throws Exception {
+		String string_json = Files.readString(Paths.get("./mml_test/LanguageTest/mml_LanguageTest2.json")); // colonne nom non valide
+		ReadJsonParameters parameters = new ReadJsonParameters(string_json);
+		parameters.read();
+		String filename = parameters.getFilemame();
+		String target_variable = parameters.getTargetVariable();
+		Set<Float> set_train_sizes = parameters.getTrainSizes();
+		Set<String> set_metrics = parameters.getMetrics();
+		Set<Integer> set_max_depth_values = parameters.getMaxDepthValues();
+		int repetition = parameters.getRepetition();
+		
+		// set parameters to ConfigurationML
 		ConfigurationML configuration = new ConfigurationML();
-		configuration.setFilePath("iris.csv");
-		configuration.setTarget("varietyyy"); //non existing variable
-		configuration.setTrainSize((float)0.7);
-		Set<String> set_metrics = new HashSet<String>();
-		set_metrics.add("accuracy");
+		configuration.setFilePath(filename);
+		configuration.setTarget(target_variable);
 		configuration.setMetrics(set_metrics);
-		configuration.setMaxDepth(5);
-		MLExecutor ex = new RLanguageMLExecutor(configuration);
-		ex.generateCode();
-		MLResult result = ex.run();
 		
-		if (result.getStringResult().contains("Error in")) {
-			assertTrue(true);
-		}
-		else {
-			fail("Il n'y a pas d'erreur renvoyée par R");
-		}
+		for (float train_size : set_train_sizes) {
+			// Split dataset in train/test with traintestsplit script python
+			MLExecutor split = null;
+			configuration.setTrainSize(train_size);
+			split = new TrainTestSplit(configuration);
+			split.generateCode();
+			split.run();
+			
+			for (int max_depth : set_max_depth_values) {
+				configuration.setMaxDepth(max_depth);
+				
+				for(int i=0; i<repetition; i++){
+									
+					MLExecutor ex = new RLanguageMLExecutor(configuration);	
+					ex.generateCode();
+					MLResult result = ex.run();
 		
+					if (result.getStringResult().contains("colonnes non définies")) {
+						assertTrue(true);
+					}
+					else {
+						fail("Il n'y a pas d'erreur renvoyée par R");
+					}
+				
+				}
+			}
+		}
 	}
 	
 	@Test
 	public void testR3() throws Exception {
+		String string_json = Files.readString(Paths.get("./mml_test/LanguageTest/mml_LanguageTest3.json")); // no error & test autre dataset
+		ReadJsonParameters parameters = new ReadJsonParameters(string_json);
+		parameters.read();
+		String filename = parameters.getFilemame();
+		String target_variable = parameters.getTargetVariable();
+		Set<Float> set_train_sizes = parameters.getTrainSizes();
+		Set<String> set_metrics = parameters.getMetrics();
+		Set<Integer> set_max_depth_values = parameters.getMaxDepthValues();
+		int repetition = parameters.getRepetition();
+		
+		// set parameters to ConfigurationML
 		ConfigurationML configuration = new ConfigurationML();
-		configuration.setFilePath("churn_dataset.csv"); //new dataset
-		configuration.setTarget("Exited");
-		configuration.setTrainSize((float)0.7);
-		Set<String> set_metrics = new HashSet<String>();
-		set_metrics.add("accuracy");
+		configuration.setFilePath(filename);
+		configuration.setTarget(target_variable);
 		configuration.setMetrics(set_metrics);
-		configuration.setMaxDepth(5);
-		MLExecutor ex = new RLanguageMLExecutor(configuration);
-		ex.generateCode();
-		MLResult result = ex.run();	
-		// TODO: should raise an exception
 		
-		System.out.println(result.getStringResult());
+		for (float train_size : set_train_sizes) {
+			// Split dataset in train/test with traintestsplit script python
+			MLExecutor split = null;
+			configuration.setTrainSize(train_size);
+			split = new TrainTestSplit(configuration);
+			split.generateCode();
+			split.run();
+			
+			for (int max_depth : set_max_depth_values) {
+				configuration.setMaxDepth(max_depth);
+				
+				for(int i=0; i<repetition; i++){
+									
+					MLExecutor ex = new RLanguageMLExecutor(configuration);	
+					ex.generateCode();
+					MLResult result = ex.run();
 		
-		try {
-			assertTrue(result.getStringResult().contains("accuracy"));
+					try {
+						assertTrue(result.getStringResult().contains("accuracy"));
+					}
+					catch (AssertionError e) {
+						fail("not the good scoring");
+					}
+				
+				}
+			}
 		}
-		catch (AssertionError e) {
-			fail("not the good scoring");
-		}
-		
 	}
-	
-	
 
 }

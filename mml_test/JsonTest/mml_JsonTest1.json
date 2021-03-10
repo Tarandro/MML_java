@@ -6,6 +6,6 @@
  "target_variable": "variety",
  "metrics" : ["accuracy", "macro_precision"],
  "max_depth" : [2,3,5,10,20],
- "languages" : "Python",
+ "languages" : ["Python"],
  "repetition" : 1
 }

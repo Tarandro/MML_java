@@ -9,10 +9,10 @@ df_train = pd.read_csv(file_path.replace('.csv','_train.csv'))
 df_test = pd.read_csv(file_path.replace('.csv','_test.csv'))
 
 # Spliting dataset between features (X) and label (y)
-X_train = df_train.drop(columns=["varietyyy"])
-y_train = df_train["varietyyy"]
-X_test = df_test.drop(columns=["varietyyy"])
-y_test = df_test["varietyyy"]
+X_train = df_train.drop(columns=["varietyy"])
+y_train = df_train["varietyy"]
+X_test = df_test.drop(columns=["varietyy"])
+y_test = df_test["varietyy"]
 
 max_depth = 5
 # Set algorithm to use
