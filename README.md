@@ -10,7 +10,7 @@ TODO rendu collectif:
 - ~~paramètre pour répéter plusieurs fois la mesure~~
 - (optionnel) support Docker
 - Maven
-- Test unitaires pour chaque classe
+- ~~Test unitaires pour chaque classe~~
 
 - site web
 

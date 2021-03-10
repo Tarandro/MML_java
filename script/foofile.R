@@ -1,5 +1,5 @@
 library(rpart)
-file_path = './dataset/irist.csv'
+file_path = './dataset/iris.csv'
 df_train = read.csv(gsub('.csv','_train.csv',file_path))
 df_train[,'variety'] = as.factor(df_train[,'variety'])
 df_test = read.csv(gsub('.csv','_test.csv',file_path))
@@ -8,7 +8,7 @@ df_test[,'variety'] = as.factor(df_test[,'variety'])
 X_test = df_test[, -which(colnames(df_test) =="variety")]
 y_test = as.factor(df_test[, which(colnames(df_test) =="variety")])
 
-model = rpart(formula = variety~., data = df_train, control = rpart.control(maxdepth =5))
+model = rpart(formula = variety~., data = df_train, control = rpart.control(maxdepth =15))
 
 pred = as.vector(predict(model, X_test, type = 'class'))
 

@@ -7,7 +7,7 @@ using DecisionTree
 using Random
 using EvalMetrics
 using MLLabelUtils
-file_path = "./dataset/irist.csv"
+file_path = "./dataset/iris.csv"
 df_train = DataFrame(CSV.File(replace(file_path, ".csv" => "_train.csv")))
 df_test = DataFrame(CSV.File(replace(file_path, ".csv" => "_test.csv")))
 
@@ -33,7 +33,7 @@ X_test = Matrix(X_test)
 y_test = Array(y_test)
 
 # train depth-truncated classifier
-max_depth = 5
+max_depth = 15
 model = DecisionTreeClassifier(max_depth=max_depth)
 using ScikitLearn: fit!
 fit!(model, X_train, y_train)

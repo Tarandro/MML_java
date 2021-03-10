@@ -4,10 +4,8 @@ import static org.junit.Assert.fail;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.Set;
 
-import org.json.JSONObject;
 import org.junit.Test;
 
 public class MMLPythonTest {
