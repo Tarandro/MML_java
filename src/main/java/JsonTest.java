@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,23 +42,28 @@ public class JsonTest {
 		}
 	}
 	
-	public void trainSize() {
-		float train_size = (float)0.7;
-		try {
-			train_size = obj.getFloat("training");
-		}
-		catch (org.json.JSONException errTrainSize) {
-			System.out.println("Entrer un champ training \n");
-			throw errTrainSize;
-		}
-		if (train_size > 1 || train_size < 0) {
-			throw new IllegalArgumentException("Choisir une taille d'entraînement entre 0 et 1");
+	public void trainSizes() {
+		JSONArray train_sizes = obj.getJSONArray("training");
+		Set<Float> set_train_sizes = new HashSet<Float>();
+		for(int i=0; i<train_sizes.length(); i++)
+		{
+			float t = (float)0.7;
+			try {
+				BigDecimal bg = train_sizes.getBigDecimal(i);
+				t = bg.floatValue();
+				set_train_sizes.add(t);
+			}
+			catch (NullPointerException errTrainSize) {
+				System.out.println("Donner une taille d'ensemble d'entraînement");
+			}
+			if (t > 1 || t<0) {
+				throw new IllegalArgumentException("Choisir une taille d'entraînement entre 0 et 1");
+			}
 		}
 	}
 	
 	public void languages() {
 		JSONArray languages = obj.getJSONArray("languages");
-		// add one by one name_metric from metrics to list_metrics
 		Set<String> set_languages = new HashSet<String>();
 		for(int i=0; i<languages.length(); i++)
 		{

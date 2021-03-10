@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ public class ReadJsonParameters {
 	private String string_json;
 	private String filename;
 	private String target_variable;
-	private float train_size;
+	private Set<Float> set_train_sizes;
 	private Set<String> set_metrics;
 	private Set<Integer> set_max_depth_values;
 	private Set<String> set_languages;
@@ -25,7 +26,7 @@ public class ReadJsonParameters {
 		JsonTest test = new JsonTest(obj);
 		test.fileName();
 		test.target();
-		test.trainSize();
+		test.trainSizes();
 		test.languages();
 		
 		JSONObject d = (JSONObject) obj.get("dataset");
@@ -46,22 +47,29 @@ public class ReadJsonParameters {
 		catch (NullPointerException errTarget) {
 			System.out.println("Donner un nom de variable cible");
 		}
+
 		
-		
-		this.train_size = (float)0.7;
-		try {
-			this.train_size = obj.getFloat("training");
+		JSONArray train_sizes = obj.getJSONArray("training");
+		Set<Float> set_train_sizes = new HashSet<Float>();
+		for(int i=0; i<train_sizes.length(); i++)
+		{
+			Float t = (float) 0.7;
+			try {
+				BigDecimal bg = train_sizes.getBigDecimal(i);
+				t = bg.floatValue();
+				set_train_sizes.add(t);
+			}
+			catch (NullPointerException errTrainSize) {
+				System.out.println("Donner une taille d'ensemble d'entraînement");
+			}
+			if (t > 1 || t<0) {
+				throw new IllegalArgumentException("Choisir une taille d'entraînement entre 0 et 1");
+			}
 		}
-		catch (NullPointerException errTrainSize) {
-			System.out.println("Donner une taille d'ensemble d'entraînement");
-		}
-		if (train_size > 1 || train_size<0) {
-			throw new IllegalArgumentException("Choisir une taille d'entraînement entre 0 et 1");
-		}
+		this.set_train_sizes = set_train_sizes;
 		
 		
 		JSONArray metrics = obj.getJSONArray("metrics");
-		// add one by one name_metric from metrics to list_metrics
 		Set<String> set_metrics = new HashSet<String>();
 		for(int i=0; i<metrics.length(); i++)
 		{
@@ -71,7 +79,6 @@ public class ReadJsonParameters {
 		
 		
 		JSONArray max_depth_values = obj.getJSONArray("max_depth");
-		// add one by one name_metric from metrics to list_metrics
 		Set<Integer> set_max_depth_values = new HashSet<Integer>();
 		for(int i=0; i<max_depth_values.length(); i++)
 		{
@@ -81,7 +88,6 @@ public class ReadJsonParameters {
 		
 		
 		JSONArray languages = obj.getJSONArray("languages");
-		// add one by one name_metric from metrics to list_metrics
 		Set<String> set_languages = new HashSet<String>();
 		for(int i=0; i<languages.length(); i++)
 		{
@@ -109,8 +115,8 @@ public class ReadJsonParameters {
 		return target_variable;
 	}
 	
-	public float getTrainSize() {
-		return train_size;
+	public Set<Float> getTrainSizes() {
+		return set_train_sizes;
 	}
 	
 	public Set<String> getMetrics() {

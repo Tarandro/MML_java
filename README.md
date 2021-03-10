@@ -6,7 +6,7 @@ TODO rendu collectif:
 - ~~train set + test set exactement le même dans chaque language~~
 - ~~écrire les classes pour lire le JSON~~
 - Diagramme de class UML
-- automatiser l'analyse de données
+- ~~automatiser l'analyse de données~~
 - paramètre pour répéter plusieurs fois la mesure
 - (optionnel) support Docker
 - Maven
