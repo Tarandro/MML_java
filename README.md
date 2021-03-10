@@ -3,7 +3,7 @@
 TODO rendu collectif:
 
 - instructions + requirement packages dans readme 
-- train set + test set exactement le même dans chaque language
+- ~~train set + test set exactement le même dans chaque language~~
 - écrire les classes pour lire le JSON
 - Diagramme de class UML
 - automatiser l'analyse de données
