@@ -12,7 +12,7 @@ public class ReadJsonParameters {
 	private float train_size;
 	private Set<String> set_metrics;
 	private int max_depth_value;
-	private String language;
+	private Set<String> set_languages;
 	
 	public ReadJsonParameters(String string_json) {
 		this.string_json = string_json;
@@ -26,7 +26,7 @@ public class ReadJsonParameters {
 		test.fileName();
 		test.target();
 		test.trainSize();
-		test.language();
+		test.languages();
 		
 		JSONObject d = (JSONObject) obj.get("dataset");
 		
@@ -74,16 +74,24 @@ public class ReadJsonParameters {
 		this.max_depth_value = obj.getInt("max_depth");
 		
 		
-		this.language = "";
-		try {
-			this.language = obj.getString("language").toLowerCase();
+		JSONArray languages = obj.getJSONArray("languages");
+		// add one by one name_metric from metrics to list_metrics
+		Set<String> set_languages = new HashSet<String>();
+		for(int i=0; i<languages.length(); i++)
+		{
+			String l = "";
+			try {
+				l = languages.getString(i).toLowerCase();
+				set_languages.add(l);
+			}
+			catch (NullPointerException errLanguage) {
+				System.out.println("Donner un nom de langage");
+			}
+			if (!(l.matches("python") || l.matches("r") || l.matches("julia"))) {
+				throw new IllegalArgumentException("Choisir Python, R ou Julia");
+			}
 		}
-		catch (NullPointerException errLanguage) {
-			System.out.println("Donner un nom de langage");
-		}
-		if (!(language.matches("python") || language.matches("r") || language.matches("julia"))) {
-			throw new IllegalArgumentException("Choisir Python, R ou Julia");
-		}
+		this.set_languages = set_languages;
 		
 	}
 	
@@ -107,8 +115,8 @@ public class ReadJsonParameters {
 		return max_depth_value;
 	}
 	
-	public String getLanguage() {
-		return language;
+	public Set<String> getLanguages() {
+		return set_languages;
 	}
 	
 }

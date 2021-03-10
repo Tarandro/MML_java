@@ -78,6 +78,8 @@ public class RLanguageMLExecutor extends MLExecutor {
 	}
 
 	public MLResult run() throws IOException {
+		float train_size = configuration.getTrainSize();
+		int max_depth = configuration.getMaxDepth();
 		// execute the generated Python code
 		// roughly: exec "python foofile.py"
 		Process p = Runtime.getRuntime().exec("R --slave -f " + R_OUTPUT);
@@ -95,7 +97,9 @@ public class RLanguageMLExecutor extends MLExecutor {
 		String o;
 		LinkedList<String> listStrings = new LinkedList<String>();
 		
-		JSONObject json_result = new JSONObject(); 
+		JSONObject json_result = new JSONObject();
+		
+		System.out.println("R (Train size = "+ String.valueOf(train_size) +", Max depth = "+ String.valueOf(max_depth) +"):");
 
 		while ((o = stdInput.readLine()) != null) {
 			listStrings.add(o.replace("\"", "").replace("[1] ", ""));

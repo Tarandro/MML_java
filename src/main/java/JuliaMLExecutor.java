@@ -113,7 +113,8 @@ public class JuliaMLExecutor extends MLExecutor {
 	}
 
 	public MLResult run() throws IOException {
-		String target = configuration.getTarget();
+		float train_size = configuration.getTrainSize();
+		int max_depth = configuration.getMaxDepth();
 		
 		// execute the generated Julia code
 		// roughly: exec "julia foofile.py"
@@ -133,6 +134,8 @@ public class JuliaMLExecutor extends MLExecutor {
 		LinkedList<String> listStrings = new LinkedList<String>();
 		
 		JSONObject json_result = new JSONObject(); 
+		
+		System.out.println("Julia (Train size = "+ String.valueOf(train_size) +", Max depth = "+ String.valueOf(max_depth) +"):");
 
 		while ((o = stdInput.readLine()) != null) {
 			listStrings.add(o);

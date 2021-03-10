@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -52,17 +55,23 @@ public class JsonTest {
 		}
 	}
 	
-	public void language() {
-		String tl = "";
-		try {
-			tl = obj.getString("language").toLowerCase();
-		}
-		catch (org.json.JSONException errLanguage) {
-			System.out.println("Entrer un champ language");
-			throw errLanguage;
-		}
-		if (!(tl.matches("python") || tl.matches("r") || tl.matches("julia"))) {
-			throw new IllegalArgumentException("Choisir Python, R ou Julia");
+	public void languages() {
+		JSONArray languages = obj.getJSONArray("languages");
+		// add one by one name_metric from metrics to list_metrics
+		Set<String> set_languages = new HashSet<String>();
+		for(int i=0; i<languages.length(); i++)
+		{
+			String l = "";
+			try {
+				l = languages.getString(i).toLowerCase();
+				set_languages.add(l);
+			}
+			catch (NullPointerException errLanguage) {
+				System.out.println("Donner un nom de langage");
+			}
+			if (!(l.matches("python") || l.matches("r") || l.matches("julia"))) {
+				throw new IllegalArgumentException("Choisir Python, R ou Julia");
+			}
 		}
 	}
 }
