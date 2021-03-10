@@ -1,18 +1,16 @@
 library(rpart)
+file_path = './dataset/iris.csv'
+df_train = read.csv(gsub('.csv','_train.csv',file_path))
+df_train[,'variety'] = as.factor(df_train[,'variety'])
+df_test = read.csv(gsub('.csv','_test.csv',file_path))
+df_test[,'variety'] = as.factor(df_test[,'variety'])
 
-dataset = read.csv('iris.csv')
-dataset[,'variety'] = as.factor(dataset[,'variety'])
+X_test = df_test[, -which(colnames(df_test) =="variety")]
+y_test = as.factor(df_test[, which(colnames(df_test) =="variety")])
 
-# Spliting dataset into training set and test set
-train_ind = sample(1:nrow(dataset), size = nrow(dataset)*0.7)
+model = rpart(formula = variety~., data = df_train, control = rpart.control(maxdepth =5))
 
-train = dataset[train_ind, ]
-X_test = dataset[-train_ind, -which(colnames(dataset) =="variety")]
-y_test = as.factor(dataset[-train_ind, which(colnames(dataset) =="variety")])
-
-model = rpart(formula = variety~., data = train, control = rpart.control(maxdepth =5))
-
-pred = pred = as.vector(predict(model, X_test, type = 'class'))
+pred = as.vector(predict(model, X_test, type = 'class'))
 
 metrics = c('macro_recall','macro_f1','accuracy','macro_precision')
 

@@ -12,7 +12,7 @@ import com.google.common.io.Files;
 
 public class PythonMLExecutor extends MLExecutor {
 	
-	private final String PYTHON_OUTPUT = "foofile.py";
+	private final String PYTHON_OUTPUT = "./script/foofile.py";
 	
 	public PythonMLExecutor(ConfigurationML configuration) {
 		this.configuration = configuration;
@@ -35,15 +35,15 @@ public class PythonMLExecutor extends MLExecutor {
 	             + "from sklearn.metrics import classification_report, confusion_matrix\n"
 	             + "\n"
 	             + "# Using pandas to import the dataset\n"
-	             + "df = pd.read_csv(\"" + file_path + "\")\n"
+	             + "file_path = '" + file_path + "'\n"
+	             + "df_train = pd.read_csv(file_path.replace('.csv','_train.csv'))\n"
+	             + "df_test = pd.read_csv(file_path.replace('.csv','_test.csv'))\n"
 	             + "\n"
 	             + "# Spliting dataset between features (X) and label (y)\n"
-	             + "X = df.drop(columns=[\"" + target + "\"])\n"
-	             + "y = df[\"" + target + "\"]\n"
-	             + "\n"
-	             + "# Spliting dataset into training set and test set\n"
-	             + "test_size = 1 - " + train_size + "\n"
-	             + "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)\n"
+	             + "X_train = df_train.drop(columns=[\"" + target + "\"])\n"
+	             + "y_train = df_train[\"" + target + "\"]\n"
+	             + "X_test = df_test.drop(columns=[\"" + target + "\"])\n"
+	             + "y_test = df_test[\"" + target + "\"]\n"
 	             + "\n"
 	             + "max_depth = " + max_depth + "\n"
 	             + "# Set algorithm to use\n"

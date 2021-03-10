@@ -7,22 +7,18 @@ using DecisionTree
 using Random
 using EvalMetrics
 using MLLabelUtils
-df = DataFrame(CSV.File("iris.csv"))
+file_path = "./dataset/iris.csv"
+df_train = DataFrame(CSV.File(replace(file_path, ".csv" => "_train.csv")))
+df_test = DataFrame(CSV.File(replace(file_path, ".csv" => "_test.csv")))
 
-# split the dataset 
-sample = randsubseq(1:size(df,1), 0.8)
-train = df[sample, :]
-notsample = [i for i in 1:size(df,1) if isempty(searchsorted(sample, i))]
-test = df[notsample, :]
-
-col = names(df)
+col = names(df_train)
 X_names = setdiff(col, ["variety"])
 
-X_train = train[:, X_names]
-Y_train = train[:, :"variety"]
-X_test = test[:, X_names]
-Y_test = test[:, :"variety"]
-Y_enc = labelenc(df[:, :variety])
+X_train = df_train[:, X_names]
+Y_train = df_train[:, :"variety"]
+X_test = df_test[:, X_names]
+Y_test = df_test[:, :"variety"]
+Y_enc = labelenc(df_train[:, :"variety"])
 y_train = Int64[]
 for i in 1:length(Y_train)
     append!(y_train, label2ind(Y_train[i], Y_enc))
@@ -41,13 +37,7 @@ max_depth = 5
 model = DecisionTreeClassifier(max_depth=max_depth)
 using ScikitLearn: fit!
 fit!(model, X_train, y_train)
-# using ScikitLearn: predict
-# predict(model, [5.9,3.0,5.1,1.9])
-# get the probability of each label
-# predict_proba(model, [5.9,3.0,5.1,1.9])
-# println(get_classes(model)) # returns the ordering of the columns in predict_proba's output
-# run n-fold cross validation over 3 CV folds
-# See ScikitLearn.jl for installation instructions
+
 using ScikitLearn.CrossValidation: cross_val_score
 accuracy = cross_val_score(model, X_test, y_test, cv=3)
 mean_accuracy = mean(accuracy)

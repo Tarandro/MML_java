@@ -29,7 +29,6 @@ public class MMLMain {
 		
 		// TargetLanguage tl = TargetLanguage.PYTHON; // 
 		
-		long startTime = System.nanoTime();
 		
 		String str;
 		
@@ -131,10 +130,17 @@ public class MMLMain {
 		configuration.setMaxDepth(max_depth_value);
 		
 		
-		
 		// TODO: instead of command line arguments, we will use JSON files to configure the compilers
 		// YAML, JSON, XML, etc.
 		//ConfigurationML configuration = new ConfigurationML(args[0], args[1]);
+		
+		MLExecutor split = null;
+		split = new TrainTestSplit(configuration);
+		split.generateCode();
+		split.run();
+		
+		long startTime = System.nanoTime();
+		
 		MLExecutor ex = null;
 		
 		
@@ -167,9 +173,11 @@ public class MMLMain {
 		System.out.println(result.getStringResult());
 		System.out.println("Execution time: "+ durationInMillis + " ms");
 		
+		String name_dataset = f.replace(".","").replace("/","").replace("dataset","").replace("csv", "");
+		
 		// add some meta information in json_result
 		JSONObject json_result = result.getJSONResult();
-		json_result.put("dataset", f.replace(".csv", ""));
+		json_result.put("dataset", name_dataset);
 		json_result.put("target", t);
 		json_result.put("training", train_size);
 		json_result.put("max_depth", max_depth_value);
@@ -178,31 +186,26 @@ public class MMLMain {
 		
 		System.out.print(json_result);
 		
-		Path path = Paths.get("./log_results.json");
+		String path_log_results = "./results/log_results_"+name_dataset+".json";
+		Path path = Paths.get(path_log_results);
 		
+		JSONObject log_results = new JSONObject();
 		// if file exist, add json_result to file with key : length(log_results) + 1
 	    if (Files.exists(path)) {
-	    	String log_results_str = Files.readString(Paths.get("log_results.json"));
-			JSONObject log_results = new JSONObject(log_results_str);
+	    	String log_results_str = Files.readString(Paths.get(path_log_results));
+			log_results = new JSONObject(log_results_str);
 				
 			log_results.put(String.valueOf(log_results.length()+1), json_result);
-			
-			FileWriter file = new FileWriter("./log_results.json");
-		    file.write(log_results.toString());
-		    file.flush();
-		    file.close();
 		// if not, create a json file and add json_result with key = 1
 	    }else{
-	    	JSONObject log_results = new JSONObject();
+	    	log_results = new JSONObject();
 			log_results.put("1", json_result);
-			
-			FileWriter file = new FileWriter("./log_results.json");
-		    file.write(log_results.toString());
-		    file.flush();
-		    file.close();
 
 	    }
-	   
+	    FileWriter file = new FileWriter(path_log_results);
+	    file.write(log_results.toString());
+	    file.flush();
+	    file.close();
 				
 		//ex.run();	
 		

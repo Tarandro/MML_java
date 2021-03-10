@@ -12,7 +12,7 @@ public class MMLJsonTest {
 	
 	@Test
 	public void testJson1() throws Exception {
-		String str = Files.readString(Paths.get("mml_test1.json")); //le json n'a pas de champ filename
+		String str = Files.readString(Paths.get("./mml_test/mml_test1.json")); //le json n'a pas de champ filename
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
@@ -27,7 +27,7 @@ public class MMLJsonTest {
 	
 	@Test
 	public void testJson2() throws Exception {
-		String str = Files.readString(Paths.get("mml_test2.json")); //le json a un champ filename vide
+		String str = Files.readString(Paths.get("./mml_test/mml_test2.json")); //le json a un champ filename vide
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
@@ -42,7 +42,7 @@ public class MMLJsonTest {
 	
 	@Test
 	public void testJson3() throws Exception {
-		String str = Files.readString(Paths.get("mml_test3.json")); //le json a une taille d'entraînement supérieure à 1
+		String str = Files.readString(Paths.get("./mml_test/mml_test3.json")); //le json a une taille d'entraînement supérieure à 1
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
@@ -57,7 +57,7 @@ public class MMLJsonTest {
 	
 	@Test
 	public void testJson4() throws Exception {
-		String str = Files.readString(Paths.get("mml_test4.json")); //le json désigne un langage non supporté
+		String str = Files.readString(Paths.get("./mml_test/mml_test4.json")); //le json désigne un langage non supporté
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {

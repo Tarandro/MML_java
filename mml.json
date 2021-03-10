@@ -1,6 +1,6 @@
 {
  "dataset": {
-	"filename" : "iris.csv",
+	"filename" : "./dataset/iris.csv",
    "separator" : ","
  },
  "training": 0.7,

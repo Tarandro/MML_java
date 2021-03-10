@@ -11,7 +11,7 @@ import com.google.common.io.Files;
 
 public class RLanguageMLExecutor extends MLExecutor {
 
-	private static final String R_OUTPUT = "foofile.R";
+	private static final String R_OUTPUT = "./script/foofile.R";
 		
 	public RLanguageMLExecutor(ConfigurationML configuration) {
 		this.configuration = configuration;
@@ -27,20 +27,18 @@ public class RLanguageMLExecutor extends MLExecutor {
 		
 		// R code 
 		String Rcode = "library(rpart)\n"
+				+ "file_path = '" + file_path + "'\n"
+				+ "df_train = read.csv(gsub('.csv','_train.csv',file_path))\n"
+				+ "df_train[,'"+target+"'] = as.factor(df_train[,'"+target+"'])\n"
+				+ "df_test = read.csv(gsub('.csv','_test.csv',file_path))\n"
+				+ "df_test[,'"+target+"'] = as.factor(df_test[,'"+target+"'])\n"
 				+ "\n"
-				+ "dataset = read.csv('"+ file_path +"')\n"
-				+ "dataset[,'"+target+"'] = as.factor(dataset[,'"+target+"'])\n"
+				+ "X_test = df_test[, -which(colnames(df_test) ==\""+target+"\")]\n"
+				+ "y_test = as.factor(df_test[, which(colnames(df_test) ==\""+target+"\")])\n"
 				+ "\n"
-				+ "# Spliting dataset into training set and test set\n"
-				+ "train_ind = sample(1:nrow(dataset), size = nrow(dataset)*" + train_size + ")\n"
+				+ "model = rpart(formula = "+target+"~., data = df_train, control = rpart.control(maxdepth =" + max_depth + "))\n"
 				+ "\n"
-				+ "train = dataset[train_ind, ]\n"
-				+ "X_test = dataset[-train_ind, -which(colnames(dataset) ==\""+target+"\")]\n"
-				+ "y_test = as.factor(dataset[-train_ind, which(colnames(dataset) ==\""+target+"\")])\n"
-				+ "\n"
-				+ "model = rpart(formula = "+target+"~., data = train, control = rpart.control(maxdepth =" + max_depth + "))\n"
-				+ "\n"
-				+ "pred = pred = as.vector(predict(model, X_test, type = 'class'))\n"
+				+ "pred = as.vector(predict(model, X_test, type = 'class'))\n"
 				+ "\n"
 				+ "metrics = c('"+String.join("','", metrics)+"')\n"
 				+ "\n"

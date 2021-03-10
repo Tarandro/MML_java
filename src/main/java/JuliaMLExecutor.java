@@ -13,7 +13,7 @@ import com.google.common.io.Files;
 
 public class JuliaMLExecutor extends MLExecutor {
 	
-	private final String JULIA_OUTPUT = "julia.jl";
+	private final String JULIA_OUTPUT = "./script/julia.jl";
 	
 	public JuliaMLExecutor(ConfigurationML configuration) {
 		this.configuration = configuration;
@@ -40,22 +40,18 @@ public class JuliaMLExecutor extends MLExecutor {
 				+ "using EvalMetrics\r\n"
 				+ "using MLLabelUtils"
 				+ "\r\n"
-				+ "df = DataFrame(CSV.File(\"" + file_path + "\"))\r\n"
+				+ "file_path = \""+file_path+"\"\r\n"
+				+ "df_train = DataFrame(CSV.File(replace(file_path, \".csv\" => \"_train.csv\")))\r\n"
+				+ "df_test = DataFrame(CSV.File(replace(file_path, \".csv\" => \"_test.csv\")))\r\n"
 				+ "\r\n"
-				+ "# split the dataset \r\n"
-				+ "sample = randsubseq(1:size(df,1), 0.8)\r\n"
-				+ "train = df[sample, :]\r\n"
-				+ "notsample = [i for i in 1:size(df,1) if isempty(searchsorted(sample, i))]\r\n"
-				+ "test = df[notsample, :]\r\n"
-				+ "\r\n"
-				+ "col = names(df)\r\n"
+				+ "col = names(df_train)\r\n"
 				+ "X_names = setdiff(col, [\"" + target + "\"])\r\n"
 				+ "\r\n"
-				+ "X_train = train[:, X_names]\r\n"
-				+ "Y_train = train[:, :\"" + target + "\"]\r\n"
-				+ "X_test = test[:, X_names]\r\n"
-				+ "Y_test = test[:, :\"" + target + "\"]\r\n"
-				+ "Y_enc = labelenc(df[:, :variety])\r\n"
+				+ "X_train = df_train[:, X_names]\r\n"
+				+ "Y_train = df_train[:, :\"" + target + "\"]\r\n"
+				+ "X_test = df_test[:, X_names]\r\n"
+				+ "Y_test = df_test[:, :\"" + target + "\"]\r\n"
+				+ "Y_enc = labelenc(df_train[:, :\"" + target + "\"])\r\n"
 				+ "y_train = Int64[]\r\n"
 				+ "for i in 1:length(Y_train)\r\n"
 				+ "    append!(y_train, label2ind(Y_train[i], Y_enc))\r\n"
@@ -74,13 +70,7 @@ public class JuliaMLExecutor extends MLExecutor {
 				+ "model = DecisionTreeClassifier(max_depth=max_depth)\r\n"
 				+ "using ScikitLearn: fit!\r\n"
 				+ "fit!(model, X_train, y_train)\r\n"
-				+ "# using ScikitLearn: predict\r\n"
-				+ "# predict(model, [5.9,3.0,5.1,1.9])\r\n"
-				+ "# get the probability of each label\r\n"
-				+ "# predict_proba(model, [5.9,3.0,5.1,1.9])\r\n"
-				+ "# println(get_classes(model)) # returns the ordering of the columns in predict_proba's output\r\n"
-				+ "# run n-fold cross validation over 3 CV folds\r\n"
-				+ "# See ScikitLearn.jl for installation instructions\r\n"
+				+ "\r\n"
 				+ "using ScikitLearn.CrossValidation: cross_val_score\r\n"
 				+ "accuracy = cross_val_score(model, X_test, y_test, cv=3)\r\n"
 				+ "mean_accuracy = mean(accuracy)\r\n"
