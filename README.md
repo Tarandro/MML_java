@@ -1,5 +1,20 @@
 # multi machine learning (MML)
 
+TODO rendu collectif:
+
+- instructions + requirement packages dans readme 
+- train set + test set exactement le même dans chaque language
+- écrire les classes pour lire le JSON
+- Diagramme de class UML
+- automatiser l'analyse de données
+- paramètre pour répéter plusieurs fois la mesure
+- (optionnel) support Docker
+- Maven
+- Test unitaires pour chaque classe
+
+- site web
+
+
 The goal of this project is to provide high-level facilities to perform machine learning tasks (e.g classification).
 The user "just" has to specify a configuration file (in e.g JSON) with information about the dataset, the predictive variables, etc. 
 Then, her specification is compiled in different languages/libraries and can then be executed. 
