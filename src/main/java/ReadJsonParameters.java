@@ -14,6 +14,7 @@ public class ReadJsonParameters {
 	private Set<String> set_metrics;
 	private Set<Integer> set_max_depth_values;
 	private Set<String> set_languages;
+	private int repetition;
 	
 	public ReadJsonParameters(String string_json) {
 		this.string_json = string_json;
@@ -105,6 +106,15 @@ public class ReadJsonParameters {
 		}
 		this.set_languages = set_languages;
 		
+		this.repetition = 1;
+		try {
+			this.repetition = obj.getInt("repetition");
+		}
+		catch (NullPointerException errRepetition) {
+			System.out.println("Donner un nombre entier pour repetition");
+		}
+
+		
 	}
 	
 	public String getFilemame() {
@@ -129,6 +139,10 @@ public class ReadJsonParameters {
 	
 	public Set<String> getLanguages() {
 		return set_languages;
+	}
+	
+	public int getRepetition() {
+		return repetition;
 	}
 	
 }

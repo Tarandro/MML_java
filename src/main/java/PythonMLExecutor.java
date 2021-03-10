@@ -18,7 +18,6 @@ public class PythonMLExecutor extends MLExecutor {
 		this.configuration = configuration;
 	}
 
-	// TODO: refactoring of the code is needed since anti-pattern/bad smell https://fr.wikipedia.org/wiki/Code_smell#Long_Parameter_List
 	public void generateCode() throws IOException {
 		
 		String file_path = configuration.getFilePath();
@@ -121,7 +120,7 @@ public class PythonMLExecutor extends MLExecutor {
 				}
 			}
 		}
-		result += listStrings.getLast();//.getLast(); //permet de ne garder que la ligne avec la métrique
+		result += listStrings.getLast();
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {

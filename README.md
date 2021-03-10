@@ -7,7 +7,7 @@ TODO rendu collectif:
 - ~~écrire les classes pour lire le JSON~~
 - Diagramme de class UML
 - ~~automatiser l'analyse de données~~
-- paramètre pour répéter plusieurs fois la mesure
+- ~~paramètre pour répéter plusieurs fois la mesure~~
 - (optionnel) support Docker
 - Maven
 - Test unitaires pour chaque classe

@@ -69,7 +69,6 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "print(paste('Metrics : accuracy:',acc, '/ macro_precision:',macroPrecision, '/ macro_recall:',macroRecall, '/ macro_f1:',macroF1))\n"
 				+ "";
 		
-		// serialize code into Python filename
 		
 		Files.write(Rcode.getBytes(), new File(R_OUTPUT));
 
@@ -80,8 +79,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 	public MLResult run() throws IOException {
 		float train_size = configuration.getTrainSize();
 		int max_depth = configuration.getMaxDepth();
-		// execute the generated Python code
-		// roughly: exec "python foofile.py"
+
 		Process p = Runtime.getRuntime().exec("R --slave -f " + R_OUTPUT);
 	
 		// output
@@ -113,7 +111,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 				}
 			}
 		}
-		result += listStrings.getLast();//.getLast(); //permet de ne garder que la ligne avec la métrique
+		result += listStrings.getLast();
 	
 		String err; 
 		while ((err = stdError.readLine()) != null) {
