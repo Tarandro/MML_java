@@ -33,6 +33,7 @@ public class TrainTestSplit extends MLExecutor {
 	             + "\n"
 	             + "# Using pandas to import the dataset and sample\n"
 	             + "df = pd.read_csv(\"" + file_path + "\")\n"
+	             + "print(df)\n"
 	             + "df = df.sample(n = len(df), random_state = 15).reset_index(drop=True)\n"
 	             + "\n"
 	             + "# Spliting dataset into training set and test set\n"
