@@ -3,10 +3,11 @@
 	"filename" : "iris.csv",
    "separator" : ","
  },
- "training": 2.3,
+ "training": [2.3],
  "target_variable": "variety",
- "metrics" : ["accuracy", "precision"],
+ "metrics" : ["accuracy", "macro_precision"],
  "max_depth" : [2,3,5,10,20],
- "language" : "Python"
+ "languages" : ["Python"],
+ "repetition" : 2
   
 }

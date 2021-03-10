@@ -9,12 +9,12 @@ df_train = pd.read_csv(file_path.replace('.csv','_train.csv'))
 df_test = pd.read_csv(file_path.replace('.csv','_test.csv'))
 
 # Spliting dataset between features (X) and label (y)
-X_train = df_train.drop(columns=["variety"])
-y_train = df_train["variety"]
-X_test = df_test.drop(columns=["variety"])
-y_test = df_test["variety"]
+X_train = df_train.drop(columns=["varietyyy"])
+y_train = df_train["varietyyy"]
+X_test = df_test.drop(columns=["varietyyy"])
+y_test = df_test["varietyyy"]
 
-max_depth = 15
+max_depth = 5
 # Set algorithm to use
 clf = tree.DecisionTreeClassifier(max_depth = max_depth)
 # Use the algorithm to create a model with the training set

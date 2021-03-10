@@ -46,8 +46,8 @@ public class MMLJsonTest {
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
-			test.trainSize();
-			fail("train_size est bien entre 0 et 1");
+			test.trainSizes();
+			fail("train_sizes sont bien entre 0 et 1");
 		}
 		catch (IllegalArgumentException e) {
 			assertTrue(true);
@@ -61,8 +61,8 @@ public class MMLJsonTest {
 		JSONObject obj = new JSONObject(str);
 		JsonTest test = new JsonTest(obj);
 		try {
-			test.language();
-			fail("Le langage est bien supporté");
+			test.languages();
+			fail("Les langage sont bien supportés");
 		}
 		catch (IllegalArgumentException e) {
 			assertTrue(true);

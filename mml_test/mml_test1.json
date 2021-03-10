@@ -2,10 +2,10 @@
  "dataset": {
    "separator" : ","
  },
- "training": 0.7,
+ "training": [0.7],
  "target_variable": "variety",
- "metrics" : ["accuracy", "precision"],
+ "metrics" : ["accuracy", "macro_precision"],
  "max_depth" : [2,3,5,10,20],
- "language" : "Python"
-  
+ "languages" : "Python",
+ "repetition" : 1
 }
