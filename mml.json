@@ -7,6 +7,6 @@
  "target_variable": "variety",
  "metrics" : ['accuracy', 'confusion', 'macro_precision', 'macro_recall', 'macro_f1'],
  "max_depth" : [2, 5, 8, 10, 15, 20, 25],
- "languages" : ["julia"],
+ "languages" : ["Python", "R", "julia"],
  "repetition" : 3
 }

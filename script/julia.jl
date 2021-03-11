@@ -33,7 +33,7 @@ X_test = Matrix(X_test)
 y_test = Array(y_test)
 
 # train depth-truncated classifier
-max_depth = 2
+max_depth = 5
 model = DecisionTreeClassifier(max_depth=max_depth, min_samples_split = 2)
 using ScikitLearn: fit!
 fit!(model, X_train, y_train)
@@ -47,7 +47,7 @@ using EvalMetrics:precision
 using EvalMetrics:recall
 using EvalMetrics:f1_score
 
-accuracy_list = Float64[]
+tp_list = Float64[]
 recall_list = Float64[]
 precision_list = Float64[]
 f1score_list = Float64[]
@@ -55,13 +55,13 @@ for i in unique(y_test)
     predi = ifelse.(pred .== i, 1, 0)
     y_testi = ifelse.(y_test .== i, 1, 0)
     cmi = ConfusionMatrix(y_testi, predi)
-    append!(accuracy_list, accuracy(cmi))
+    append!(tp_list, true_positive(cmi))
     append!(recall_list, recall(cmi))
     append!(precision_list, precision(cmi))
     append!(f1score_list, f1_score(cmi))
 end
 
-mean_accuracy = mean(accuracy_list)
+mean_accuracy = sum(tp_list)/ length(y_test)  
 print("accuracy : "*string(mean_accuracy)*"
 ")
 

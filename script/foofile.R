@@ -8,7 +8,7 @@ df_test[,'variety'] = as.factor(df_test[,'variety'])
 X_test = df_test[, -which(colnames(df_test) =="variety")]
 y_test = as.factor(df_test[, which(colnames(df_test) =="variety")])
 
-model = rpart(formula = variety~., data = df_train, control = rpart.control(minsplit = 2, maxdepth =15))
+model = rpart(formula = variety~., data = df_train, control = rpart.control(minsplit = 2, maxdepth =2))
 
 pred = as.vector(predict(model, X_test, type = 'class'))
 
