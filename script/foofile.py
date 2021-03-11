@@ -20,7 +20,7 @@ clf = tree.DecisionTreeClassifier(max_depth = max_depth)
 # Use the algorithm to create a model with the training set
 clf.fit(X_train, y_train)
 
-metrics = ['macro_recall','macro_f1','accuracy','macro_precision'] 
+metrics = ['macro_recall','macro_f1','accuracy','macro_precision','confusion'] 
 # Prediction : 
 pred = clf.predict(X_test) 
 cm = confusion_matrix(y_test, pred, labels=y_test.unique()) 

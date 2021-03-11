@@ -5,8 +5,8 @@
  },
  "training": [0.7],
  "target_variable": "variety",
- "metrics" : ['accuracy', 'macro_precision', 'macro_recall', 'macro_f1'],
- "max_depth" : [5,15],
- "languages" : ["Python", "R", "julia"],
- "repetition" : 2
+ "metrics" : ['accuracy', 'confusion', 'macro_precision', 'macro_recall', 'macro_f1'],
+ "max_depth" : [2, 5, 8, 10, 15, 20, 25],
+ "languages" : ["julia"],
+ "repetition" : 3
 }

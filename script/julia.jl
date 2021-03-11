@@ -33,25 +33,21 @@ X_test = Matrix(X_test)
 y_test = Array(y_test)
 
 # train depth-truncated classifier
-max_depth = 15
-model = DecisionTreeClassifier(max_depth=max_depth)
+max_depth = 2
+model = DecisionTreeClassifier(max_depth=max_depth, min_samples_split = 2)
 using ScikitLearn: fit!
 fit!(model, X_train, y_train)
-
-using ScikitLearn.CrossValidation: cross_val_score
-accuracy = cross_val_score(model, X_test, y_test, cv=3)
-mean_accuracy = mean(accuracy)
-print("accuracy : "*string(mean_accuracy)*"
-")
 
 using ScikitLearn: predict
 pred = predict(model, X_test)
 
 using EvalMetrics:ConfusionMatrix
+using EvalMetrics:accuracy
 using EvalMetrics:precision
 using EvalMetrics:recall
 using EvalMetrics:f1_score
 
+accuracy_list = Float64[]
 recall_list = Float64[]
 precision_list = Float64[]
 f1score_list = Float64[]
@@ -59,10 +55,15 @@ for i in unique(y_test)
     predi = ifelse.(pred .== i, 1, 0)
     y_testi = ifelse.(y_test .== i, 1, 0)
     cmi = ConfusionMatrix(y_testi, predi)
+    append!(accuracy_list, accuracy(cmi))
     append!(recall_list, recall(cmi))
     append!(precision_list, precision(cmi))
     append!(f1score_list, f1_score(cmi))
 end
+
+mean_accuracy = mean(accuracy_list)
+print("accuracy : "*string(mean_accuracy)*"
+")
 
 macro_recall = mean(recall_list)
 print("macro_recall : "*string(macro_recall)*"

@@ -8,11 +8,11 @@ df_test[,'variety'] = as.factor(df_test[,'variety'])
 X_test = df_test[, -which(colnames(df_test) =="variety")]
 y_test = as.factor(df_test[, which(colnames(df_test) =="variety")])
 
-model = rpart(formula = variety~., data = df_train, control = rpart.control(maxdepth =15))
+model = rpart(formula = variety~., data = df_train, control = rpart.control(minsplit = 2, maxdepth =15))
 
 pred = as.vector(predict(model, X_test, type = 'class'))
 
-metrics = c('macro_recall','macro_f1','accuracy','macro_precision')
+metrics = c('macro_recall','macro_f1','accuracy','macro_precision','confusion')
 
 cm = as.matrix(table(Actual = y_test, Predicted = pred))
 if ('confusion' %in% metrics) {print('confusion matrix :')

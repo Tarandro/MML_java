@@ -36,7 +36,7 @@ public class RLanguageMLExecutor extends MLExecutor {
 				+ "X_test = df_test[, -which(colnames(df_test) ==\""+target+"\")]\n"
 				+ "y_test = as.factor(df_test[, which(colnames(df_test) ==\""+target+"\")])\n"
 				+ "\n"
-				+ "model = rpart(formula = "+target+"~., data = df_train, control = rpart.control(maxdepth =" + max_depth + "))\n"
+				+ "model = rpart(formula = "+target+"~., data = df_train, control = rpart.control(minsplit = 2, maxdepth =" + max_depth + "))\n"
 				+ "\n"
 				+ "pred = as.vector(predict(model, X_test, type = 'class'))\n"
 				+ "\n"
