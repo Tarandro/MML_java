@@ -1,25 +1,2 @@
-Eclipe : 
-
-Pour UML il faut installer le plug in ObjectAid UML Explorer ObjectAid class diagram
-
-
-Python : 
-
 pandas
 sklearn
-
-Julia : 
-
-DataFrames
-DecisionTree
-CSV
-StatsBase
-ScikitLearn
-DecisionTree
-Random
-EvalMetrics
-MLLabelUtils
-
-R : 
-
-Rpart 
