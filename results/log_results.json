@@ -1,1 +1,0 @@
-{"1":{"max_depth":10,"macro_recall":0.9029304,"time_ms":977,"macro_f1":0.9010989,"variant":"python","accuracy":0.9111111,"training":0.7,"macro_precision":0.90555555,"dataset":"iris","target":"variety"}}

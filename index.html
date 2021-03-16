@@ -35,6 +35,7 @@ function uploadfile() {
 
 	xhr.open("post", url_upload);      // open connection
 	xhr.send(data); 
+	document.getElementById("is_uploaded").innerHTML = "A JSON file has been uploaded"
 	//document.getElementById("display").innerHTML = xhr.responseText;
 
 }
@@ -81,6 +82,7 @@ xmlHttp.responseType = 'text';
 
     xmlHttp.send();
 	document.getElementById("display").innerHTML = "";
+	document.getElementById("is_uploaded").innerHTML = "No file uploaded";
 }
 
 </script>
@@ -109,10 +111,11 @@ xmlHttp.responseType = 'text';
 				The backend server runs on Java code which in turn uses Python, R and Julia environments.</p>
 			<p>You can try several parameters by providing a JSON file below :</p>
 					<font color="white">
-					<form ID='myForm' enctype='multipart/form-data'>
+					<form ID='myForm' enctype='multipart/form-data' onsubmit="return false">
 						<input type='file' name='uploaded_file' accept='.json'>
-						<button onclick="uploadfile();">Upload file</button>
+						<button onclick="getClean(); uploadfile();">Upload file</button>
 					</form>
+					<p><span id="is_uploaded"></span></p>
 					</font>
 					<p><br><button class="btn btn-outline-secondary btn-lg" data-toggle="modal"
 				data-target="#mlform" class="btn btn-primary" onclick="httpGet();">Open result</button>
