@@ -1,0 +1,88 @@
+<html lang="en">
+<script language="JavaScript">
+// Sending a receiving data in JSON format using GET method
+//  
+// api url 
+const url_upload = "http://localhost:4567/upload";
+const url_result = "http://localhost:4567/result";
+const url_clean = "http://localhost:4567/clean";
+
+function uploadfile() {
+	var form = document.getElementById('myForm'); // give the form an ID
+	var xhr  = new XMLHttpRequest();              // create XMLHttpRequest
+	var data = new FormData(form);                // create formData object
+
+
+	xhr.onload = function() {
+	    console.log(this.responseText); // whatever the server returns
+	}
+
+	xhr.open("post", url_upload);      // open connection
+	xhr.send(data); 
+	//document.getElementById("display").innerHTML = xhr.responseText;
+
+}
+
+function httpGet()
+{
+    var xmlHttp = new XMLHttpRequest();
+	xmlHttp.responseType = 'text';
+    xmlHttp.open( "GET", url_result); // false for synchronous request
+	xmlHttp.onreadystatechange = function() {
+	    if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+		// we have a response and this is where we do something with it
+		result = xmlHttp.responseText;
+	    }
+	}
+
+    xmlHttp.send();
+	const json_res = JSON.parse(result);
+	var lastKey = Object.keys(json_res).sort().reverse()[0];
+	var lastValue = json_res[lastKey];
+	var text_to_print = "";
+	for(var key in lastValue){
+		    if(lastValue.hasOwnProperty(key)){
+			value = lastValue[key];
+			text_to_print = text_to_print + key + " : " + value + "<br>"
+		    }
+		}
+    //document.getElementById("display").innerHTML = JSON.stringify(lastValue);
+	document.getElementById("display").innerHTML = text_to_print;
+}
+
+function getClean()
+{
+    var xmlHttp = new XMLHttpRequest();
+xmlHttp.responseType = 'text';
+    xmlHttp.open( "GET", url_clean); // false for synchronous request
+    xmlHttp.onreadystatechange = function() {
+	    if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+		// we have a response and this is where we do something with it
+		result = xmlHttp.responseText;
+	    }
+	}
+
+    xmlHttp.send();
+	document.getElementById("display").innerHTML = "";
+}
+
+</script>
+<body>
+<center>
+<img src="logo_ensai.png" alt="Ensai logo" style="width:15%;height:15%;">
+<p>
+	<br>
+</p>
+<form ID='myForm' enctype='multipart/form-data'>
+	<input type='file' name='uploaded_file' accept='.json'>
+	<button onclick="uploadfile();">Upload file</button>
+</form>
+<p>
+<label>Result: </label>
+<button onclick="httpGet();">Print result</button>
+  <p><span id="display">No result</span></p>
+</p>
+<button onclick="getClean();">Clean</button>
+</center>
+</body>
+</html>

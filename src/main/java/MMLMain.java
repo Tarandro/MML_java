@@ -104,7 +104,8 @@ public class MMLMain {
 						json_result.put("time_ms", durationInMillis);
 						
 						// save score and meta_information in log_results :
-						String path_log_results = "./results/log_results_"+name_dataset+"_train_size_"+ String.valueOf(Math.round(train_size*100)) +".json";
+						//String path_log_results = "./results/log_results_"+name_dataset+"_train_size_"+ String.valueOf(Math.round(train_size*100)) +".json";
+						String path_log_results = "./results/log_results.json";
 						Path path = Paths.get(path_log_results);
 						
 						JSONObject log_results = new JSONObject();
@@ -129,7 +130,7 @@ public class MMLMain {
 				}
 			}
 		}
-		System.out.println("Execution Finish");
+		System.out.println("Execution finished");
 	}
 
 }
