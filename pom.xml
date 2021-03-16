@@ -22,7 +22,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>MMLMain</mainClass>
+							<mainClass>ServerMain</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -42,7 +42,7 @@
       <archive>
         <manifest>
           <addClasspath>true</addClasspath>
-          <mainClass>MMLMain</mainClass>
+          <mainClass>ServerMain</mainClass>
         </manifest>
       </archive>
       <descriptorRefs>

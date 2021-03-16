@@ -1,4 +1,20 @@
+<!DOCTYPE html>
+
 <html lang="en">
+
+<head>
+
+<title>MACHINE LEARNING WEB PROJECT</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./src/main/resources/public/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./src/main/resources/public/main.css">
+<script src="./src/main/resources/public/jquery-3.5.1.min.js"></script>
+<script src="./src/main/resources/public/bootstrap/js/bootstrap.min.js"></script>
+<script src="./src/main/resources/public/main.js"></script>
+
+</head>
+
 <script language="JavaScript">
 // Sending a receiving data in JSON format using GET method
 //  
@@ -36,6 +52,7 @@ function httpGet()
 	}
 
     xmlHttp.send();
+	//handles Json and gets the last value of the initial json result
 	const json_res = JSON.parse(result);
 	var lastKey = Object.keys(json_res).sort().reverse()[0];
 	var lastValue = json_res[lastKey];
@@ -67,22 +84,109 @@ xmlHttp.responseType = 'text';
 }
 
 </script>
+
 <body>
-<center>
-<img src="logo_ensai.png" alt="Ensai logo" style="width:15%;height:15%;">
-<p>
-	<br>
-</p>
-<form ID='myForm' enctype='multipart/form-data'>
-	<input type='file' name='uploaded_file' accept='.json'>
-	<button onclick="uploadfile();">Upload file</button>
-</form>
-<p>
-<label>Result: </label>
-<button onclick="httpGet();">Print result</button>
-  <p><span id="display">No result</span></p>
-</p>
-<button onclick="getClean();">Clean</button>
-</center>
+
+	<nav class="navbar navbar-expand-md">
+		<a class="navbar-brand" href="#">Logo</a>
+		<div class="collapse navbar-collapse" id="main-navigation">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="./index.html">Home</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="mailto:sidgroupe01@ensai.fr">Contact</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<header class="page-header header container-fluid">
+		<div class="overlay"><img src="logo_ensai.png" alt="Ensai logo" style="width:12%;height:12%;"></div>
+		<div class="description">
+			
+			<h1>Machine learning web application project</h1>
+			<p>This is a ML tool which enables to simulate decision tree algorithms
+				thanks to different different languages (Python, R, Julia) and their ML packages. 
+				The backend server runs on Java code which in turn uses Python, R and Julia environments.</p>
+			<p>You can try several parameters by providing a JSON file below :</p>
+					<font color="white">
+					<form ID='myForm' enctype='multipart/form-data'>
+						<input type='file' name='uploaded_file' accept='.json'>
+						<button onclick="uploadfile();">Upload file</button>
+					</form>
+					</font>
+					<p><br><button class="btn btn-outline-secondary btn-lg" data-toggle="modal"
+				data-target="#mlform" class="btn btn-primary" onclick="httpGet();">Open result</button>
+					</p>
+		</div>
+
+	</header>
+	<!--
+	<div class="container features">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<h3 class="feature-title">First Result</h3>
+				<p>bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+					bla bla bla bla bla bla bla bla bla bla bla bla blabla bla bla bla
+					bla bla bla.</p>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<h3 class="feature-title">Second result</h3>
+				<p>bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+					bla bla bla bla bla bla bla bla bla bla bla bla blabla bla bla bla
+					bla bla bla.</p>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<h3 class="feature-title">Third result</h3>
+				<p>bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+					bla bla bla bla bla bla bla bla bla bla bla bla blabla bla bla bla
+					bla bla bla.</p>
+			</div>
+		</div>
+	</div>
+	-->
+
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-8 col-sm-12">
+					<h6 class="text-uppercase font-weight-bold">Group members</h6>
+					<p>Antoine Boulinguez</p>
+					<p>Alexis Gassmann</p>
+					<p>Alex Georget</p>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<h6 class="text-uppercase font-weight-bold">Contact</h6>
+					<p>
+						ENSAI, CAMPUS DE KER-LANN <br />51 Rue Blaise Pascal <br />BP
+						37203 – 35172 BRUZ cedex <br />+33 (0)2 99 05 32 32 <br />sid@ensai.fr
+					</p>
+				</div>
+			</div>
+			<div class="footer-copyright text-center">© 2021 Copyright:
+				sid.ensai.fr</div>
+	</footer>
+
+
+
+	<div class="modal fade" id="mlform">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"
+					style="color: white; background-image: url(./src/main/resources/public/images/bg-06.jpg);">
+					<h4 class="modal-title">Result of the analysis:</h4>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body row">
+					
+					<p><button onclick="httpGet();">Print result</button>
+					<br><span id="display"></span>
+					<br><button onclick="getClean();">Clean</button>
+					</p>
+				</div>
+			</div>
+		</div>
 </body>
+
 </html>
