@@ -8,11 +8,11 @@ df_test[,'Exited'] = as.factor(df_test[,'Exited'])
 X_test = df_test[, -which(colnames(df_test) =="Exited")]
 y_test = as.factor(df_test[, which(colnames(df_test) =="Exited")])
 
-model = rpart(formula = Exited~., data = df_train, control = rpart.control(minsplit = 2, maxdepth =5))
+model = rpart(formula = Exited~., data = df_train, control = rpart.control(minsplit = 2, maxdepth =10))
 
 pred = as.vector(predict(model, X_test, type = 'class'))
 
-metrics = c('accuracy')
+metrics = c('macro_recall','macro_f1','accuracy','macro_precision','confusion')
 
 cm = as.matrix(table(Actual = y_test, Predicted = pred))
 if ('confusion' %in% metrics) {print('confusion matrix :')
