@@ -7,7 +7,7 @@ body {
 
 /*--- navigation bar ---*/
 .navbar {
-	background: #6ab446;
+	background: #0CCFFF;
 }
 
 .nav-link, .navbar-brand {
@@ -29,7 +29,7 @@ body {
 
 /*--- header ---*/
 .header {
-	background-image: url('images/bg-03.jpg');
+	background-image: url('images/background_picture.jpg');
 	background-size: cover;
 	background-position: center;
 	position: relative;
@@ -53,7 +53,7 @@ body {
 }
 
 .description h1 {
-	color: #6ab446;
+	color: #0CCFFF;
 }
 
 .description p {
@@ -63,8 +63,8 @@ body {
 }
 
 .description button {
-	border: 1px solid #6ab446;
-	background: #6ab446;
+	border: 1px solid #0CCFFF;
+	background: #0CCFFF;
 	border-radius: 0;
 	color: #fff;
 }

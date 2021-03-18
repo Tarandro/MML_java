@@ -1,0 +1,12 @@
+{
+ "dataset": {
+	"filename" : "./dataset/churn_dataset.csv",
+   "separator" : ","
+ },
+ "training": [0.5, 0.7, 0.9],
+ "target_variable": "Exited",
+ "metrics" : ["accuracy", "confusion", "macro_precision", "macro_recall", "macro_f1"],
+ "max_depth" : [5, 10, 20],
+ "languages" : ["Python", "R", "Julia"],
+ "repetition" : 10
+}

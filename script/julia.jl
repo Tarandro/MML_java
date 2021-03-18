@@ -7,18 +7,18 @@ using DecisionTree
 using Random
 using EvalMetrics
 using MLLabelUtils
-file_path = "./dataset/iris.csv"
+file_path = "./dataset/churn_dataset.csv"
 df_train = DataFrame(CSV.File(replace(file_path, ".csv" => "_train.csv")))
 df_test = DataFrame(CSV.File(replace(file_path, ".csv" => "_test.csv")))
 
 col = names(df_train)
-X_names = setdiff(col, ["variety"])
+X_names = setdiff(col, ["Exited"])
 
 X_train = df_train[:, X_names]
-Y_train = df_train[:, :"variety"]
+Y_train = df_train[:, :"Exited"]
 X_test = df_test[:, X_names]
-Y_test = df_test[:, :"variety"]
-Y_enc = labelenc(df_train[:, :"variety"])
+Y_test = df_test[:, :"Exited"]
+Y_enc = labelenc(df_train[:, :"Exited"])
 y_train = Int64[]
 for i in 1:length(Y_train)
     append!(y_train, label2ind(Y_train[i], Y_enc))
