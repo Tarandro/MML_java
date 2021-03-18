@@ -4,7 +4,7 @@ from sklearn import tree
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Using pandas to import the dataset
-file_path = './dataset/iris.csv'
+file_path = './dataset/churn_dataset.csv'
 df_train = pd.read_csv(file_path.replace('.csv','_train.csv'))
 df_test = pd.read_csv(file_path.replace('.csv','_test.csv'))
 
@@ -14,7 +14,7 @@ y_train = df_train["variety"]
 X_test = df_test.drop(columns=["variety"])
 y_test = df_test["variety"]
 
-max_depth = 10
+max_depth = 5
 # Set algorithm to use
 clf = tree.DecisionTreeClassifier(max_depth = max_depth)
 # Use the algorithm to create a model with the training set
