@@ -52,7 +52,7 @@ This JAR file can be executed with the command "java -jar <filepath>".
 
 - Once you are on the webpage, you can upload a JSON file which matches this kind of format (do not use it as it is, this is just an example, delete # lines first) :
 
-CAUTION: the following parameters which are lists work serverside (they all the results) with several elements, however the web app only handles one result, so you should use one-element lists when it is recommanded in order to use the web app correctly.
+CAUTION: the following parameters which are lists work serverside (they all the results) with several elements, however the web app only handles one result, so you should use one-element lists when it is recommended in order to use the web app correctly.
 
 
 { <br />
@@ -60,11 +60,11 @@ CAUTION: the following parameters which are lists work serverside (they all the 
 	"filename" : "<path to your csv file>", #path to your csv file <br />
    "separator" : "," #enter your separator here <br />
  }, <br />
- "training": [0.7], #or any list of training ratios in ]0,1[, ONE ELEMENT ONLY IS RECOMMANDED <br />
+ "training": [0.7], #or any list of training ratios in ]0,1[, ONE ELEMENT ONLY IS RECOMMENDED <br />
  "target_variable": "variety", #you target variable <br />
  "metrics" : ['accuracy', 'confusion', 'macro_precision', 'macro_recall', 'macro_f1'], #you can select a sublist of this one <br />
- "max_depth" : [5], #or any list of integers above 1, ONE ELEMENT ONLY IS RECOMMANDED <br />
- "languages" : ["Python", "R", "Julia"], #you can take a sublist of this one, ONE ELEMENT ONLY IS RECOMMANDED <br />
+ "max_depth" : [5], #or any list of integers above 1, ONE ELEMENT ONLY IS RECOMMENDED <br />
+ "languages" : ["Python", "R", "Julia"], #you can take a sublist of this one, ONE ELEMENT ONLY IS RECOMMENDED <br />
  "repetition" : 1 #or any integer <br />
 } <br />
 
