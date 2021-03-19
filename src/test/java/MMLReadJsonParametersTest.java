@@ -1,6 +1,11 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+
 
 public class MMLReadJsonParametersTest {
 	
@@ -13,7 +18,7 @@ public class MMLReadJsonParametersTest {
 			parameters.read();
 		}
 		catch(Exception e){
-			System.out.println("JSON Paramètres mal rempli");
+			fail("JSON Paramètres mal rempli");
 		}
 		
 	}
@@ -25,6 +30,7 @@ public class MMLReadJsonParametersTest {
 		try {
 			ReadJsonParameters parameters = new ReadJsonParameters(string_json);
 			parameters.read();
+			fail("la taille d'entraînement est correcte");
 		}
 		catch(IllegalArgumentException e){
 			System.out.println("Taille d'entraînement non compris entre 0 et 1");
@@ -39,6 +45,7 @@ public class MMLReadJsonParametersTest {
 		try {
 			ReadJsonParameters parameters = new ReadJsonParameters(string_json);
 			parameters.read();
+			fail("le langage est bien disponible");
 		}
 		catch(IllegalArgumentException e){
 			System.out.println("Language non disponible");

@@ -43,7 +43,7 @@ With the interactive mode of Julia, use `using Pkg()` then `Pkg.add(<package nam
 
 To perform tests with JUnit use `mvn test` in the root folder of this project.
 
-To package the project as an executable JAR use `mvn package` in the root folder of this project. Then get the JAR file in the `/target` folder.
+To package the project as an executable JAR use `mvn package` in the root folder of this project. Then get the JAR file (WITH DEPENDENCIES) in the `/target` folder.
 This JAR file can be executed with the command `java -jar <filepath>`.
 
 ## How to use the application

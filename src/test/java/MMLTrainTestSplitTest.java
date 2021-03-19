@@ -128,7 +128,7 @@ public class MMLTrainTestSplitTest {
 			split.generateCode();
 			MLResult result = split.run();
 			
-			if (result.getStringResult().contains("No such file or directory")) {
+			if (result.getStringResult().contains("FileNotFoundError")) {
 				assertTrue(true);
 			}
 			else {
