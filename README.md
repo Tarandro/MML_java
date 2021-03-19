@@ -50,7 +50,7 @@ This JAR file can be executed with the command `java -jar <filepath>`.
 
 - First launch the server. There are two ways to do this
 	- use Eclipse or another IDE to open the project and run the class "ServerMain"
-	- package the project using Maven as indicated above, then run the JAR file
+	- package the project using Maven as indicated above (or use the one in the root folder), then run the JAR file
 
 - Then open the `index.html` file in your browser.
 
