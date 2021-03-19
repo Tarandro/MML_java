@@ -59,7 +59,7 @@ This JAR file can be executed with the command `java -jar <filepath>`.
 	- use Eclipse or another IDE to open the project and run the class "ServerMain"
 	- package the project using Maven as indicated above, then run the JAR file
 
-- Then open the index.html file in your browser.
+- Then open the `index.html` file in your browser.
 
 - Once you are on the webpage, you can upload a JSON file which matches this kind of format (do not use it as it is, this is just an example, delete # lines first) :
 
