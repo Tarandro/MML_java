@@ -30,14 +30,25 @@ warning: on Windows system, the `python` command can well be `py`
 
 ### Julia
 
-(TODO)
+Julia should be installed and requires the following packages: 
+
+- DataFrames
+- DecisionTree
+- CSV
+- StatsBase
+- ScikitLearn
+- DecisionTree
+- Random
+- MLMetrics
+
+With the interactive mode of Julia, use `using Pkg()` then `Pkg.add(<package name>)` for each package to install them.
 
 
 ### Maven
 
 (Commands are for Linux)
 
-To perform tests with JUnit use "mvn test" in the root folder of this project.
+To perform tests with JUnit use `mvn test` in the root folder of this project.
 
 To package the project as an executable JAR use `mvn package` in the root folder of this project. Then get the JAR file in the `/target` folder.
 This JAR file can be executed with the command `java -jar <filepath>`.
