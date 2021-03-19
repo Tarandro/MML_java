@@ -39,8 +39,8 @@ warning: on Windows system, the `python` command can well be `py`
 
 To perform tests with JUnit use "mvn test" in the root folder of this project.
 
-To package the project as an executable JAR use "mvn package" in the root folder of this project. Then get the JAR file in the "/target" folder.
-This JAR file can be executed with the command "java -jar <filepath>".
+To package the project as an executable JAR use `mvn package` in the root folder of this project. Then get the JAR file in the `/target` folder.
+This JAR file can be executed with the command `java -jar <filepath>`.
 
 ### How to use the application
 
@@ -69,7 +69,7 @@ CAUTION: the following parameters which are lists work serverside (they all the 
 } <br />
 
 
-If you lack inspiration, you can try "file_to_upload.json"
+If you lack inspiration, you can try `file_to_upload.json`
 
 - Then click on the "Upload file" button and wait until "Success" is displayed.
 
