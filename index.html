@@ -29,6 +29,8 @@ function whenExit(){
 const url_upload = "http://localhost:4567/upload";
 const url_result = "http://localhost:4567/result";
 const url_clean = "http://localhost:4567/clean";
+const downloadUrl_json = "http://localhost:4567/download_json";
+const downloadUrl_txt = "http://localhost:4567/download_txt";
 
 //used when a file is uploaded
 function getCleanInit()
@@ -108,12 +110,75 @@ function uploadfile()
 	
 }
 
+
+
+function downloadFile() {
+	var req = new XMLHttpRequest();
+	req.open("GET", downloadUrl_json, true);
+	req.responseType = "blob";
+
+	req.onload = function (event) {
+	  var blob = req.response;
+	  var fileName = req.getResponseHeader("fileName");
+	  var contentType = req.getResponseHeader("content-type");
+
+	  // IE/EDGE seems not returning some response header
+	  if (req.getResponseHeader("content-disposition")) {
+	    var contentDisposition = req.getResponseHeader("content-disposition");
+	    fileName = contentDisposition.substring(contentDisposition.indexOf("=")+1);
+	  } else {
+	    fileName = fileName + '.' + contentType.substring(contentType.indexOf("/")+1);
+	  }
+
+	  if (window.navigator.msSaveOrOpenBlob) {
+	    // Internet Explorer
+	    window.navigator.msSaveOrOpenBlob(new Blob([blob], {type: contentType}), fileName);
+	  } else {
+	    var el = document.getElementById("download_file");
+	    el.href = window.URL.createObjectURL(blob);
+	    el.download = fileName;
+	    el.click();
+	  }
+	};
+	req.send();
+}
+
+function downloadInstr() {
+	var req = new XMLHttpRequest();
+	req.open("GET", downloadUrl_txt, true);
+	req.responseType = "blob";
+
+	req.onload = function (event) {
+	  var blob = req.response;
+	  var fileName = req.getResponseHeader("fileName");
+	  var contentType = req.getResponseHeader("content-type");
+
+	  // IE/EDGE seems not returning some response header
+	  if (req.getResponseHeader("content-disposition")) {
+	    var contentDisposition = req.getResponseHeader("content-disposition");
+	    fileName = contentDisposition.substring(contentDisposition.indexOf("=")+1);
+	  } else {
+	    fileName = fileName + '.' + contentType.substring(contentType.indexOf("/")+1);
+	  }
+
+	  if (window.navigator.msSaveOrOpenBlob) {
+	    // Internet Explorer
+	    window.navigator.msSaveOrOpenBlob(new Blob([blob], {type: contentType}), fileName);
+	  } else {
+	    var el = document.getElementById("download_file");
+	    el.href = window.URL.createObjectURL(blob);
+	    el.download = fileName;
+	    el.click();
+	  }
+	};
+	req.send();
+}
 </script>
 
 <body>
 
 	<nav class="navbar navbar-expand-md">
-		<a class="navbar-brand" href="#"><img src="logo_ensai.png" alt="Ensai logo" style="width:12%;height:12%;"></div></a>
+		<a class="navbar-brand" href="#"><img src="./src/main/resources/public/images/logo_ensai.png" alt="Ensai logo" style="width:12%;height:12%;"></div></a>
 		<div class="collapse navbar-collapse" id="main-navigation">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link"
@@ -138,6 +203,7 @@ function uploadfile()
 				thanks to different languages (Python, R, Julia) and their ML packages. 
 				The backend server runs on Java code which in turn uses Python, R and Julia environments.</p>
 			<p>You can try several parameters by providing a JSON file below :</p>
+			<p><button onclick="downloadFile();">Get example JSON</button>&nbsp;&nbsp;<button onclick="downloadInstr();">Get instructions</button><br /></p>
 					<font color="white">
 					<form ID='myForm' enctype='multipart/form-data' onsubmit="return false">
 						<input type='file' name='uploaded_file' accept='.json'>
@@ -148,6 +214,7 @@ function uploadfile()
 					<p><br><button class="btn btn-outline-secondary btn-lg" data-toggle="modal"
 				data-target="#mlform" class="btn btn-primary" id="open_button" style="display:none">Open result</button>
 					</p>
+					<a id="download_file" style="display: none"></a>
 		</div>
 
 	</header>

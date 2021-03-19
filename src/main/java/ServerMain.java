@@ -6,6 +6,7 @@ import java.io.*;
 import java.nio.file.*;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
+import org.json.JSONObject;
 
 public class ServerMain {
 
@@ -17,7 +18,7 @@ public class ServerMain {
         
         staticFiles.externalLocation("upload");
         
-        //options and before are here to handle CORS problems; CAUTION : this is no safe but OK for an academic project
+        //options and before are here to handle CORS problems that occur with the POST request; CAUTION : this is no safe but OK for an academic project
         
         options("/*",
                 (request, response) -> {
@@ -41,12 +42,6 @@ public class ServerMain {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
         
-        get("/result", (req, res) -> {
-        	
-        	System.out.println("Asked for result");
-        	String string_json = Files.readString(Paths.get("./results/log_results.json"));
-        	return string_json;
-        });
         
         get("/clean", (req, res) -> {
         	
@@ -54,6 +49,30 @@ public class ServerMain {
         	FileUtils.cleanDirectory(new File("./results"));
         	FileUtils.cleanDirectory(new File("./upload"));
         	return "Clean";
+        });
+        
+        get("/download_json", (req, res) -> {
+        	//res.header("fileName", "example");
+        	res.header("Access-Control-Expose-Headers", "fileName");
+        	res.header("fileName", "example");
+        	res.header("content-type", "application/json");
+        	System.out.println("Example JSON sent");
+        	String string_json = Files.readString(Paths.get("./downloadable_content/example.json"));
+        	JSONObject obj = new JSONObject(string_json);
+        	return obj;
+        });
+        
+        get("/download_txt", (req, res) -> {
+        	//res.header("fileName", "example");
+        	res.header("Access-Control-Expose-Headers", "fileName");
+        	res.header("fileName", "instructions");
+        	res.header("content-type", "txt");
+        	System.out.println("Instructions TXT sent");
+        	File file = new File("./downloadable_content/user_instructions.txt");
+            OutputStream outputStream = res.raw().getOutputStream();
+            outputStream.write(Files.readAllBytes(file.toPath()));
+            outputStream.flush();
+            return res;
         });
 
         post("/upload", (req, res) -> {

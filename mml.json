@@ -4,7 +4,7 @@
    "separator" : ","
  },
  "training": [0.7],
- "target_variable": "variety",
+ "target_variable": "Exited",
  "metrics" : ['accuracy', 'confusion', 'macro_precision', 'macro_recall', 'macro_f1'],
  "max_depth" : [5],
  "languages" : ["Python", "R"],

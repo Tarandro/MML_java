@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = pd.read_json('/home/antoine/Documents/GL/MML_java/benchmark/antoine/log_results_iris_10.json')
+data = pd.read_json('/home/antoine/Documents/GL/MML_java/benchmark/antoine/log_results_churn_10.json') #json de résultat pour un dataset
 data = data.transpose()
 data = data.reset_index()
 data = data.drop(['index'], axis=1)
@@ -23,7 +23,7 @@ for variant in variant_unique :
             print('lang: {} trn: {} dpth: {} mean_time_ms: {} mean_acc: {} mean_prec: {} mean_rec: {} mean_f1: {}'.format(variant,
                                 np.round(training, decimals=2), depth, np.round(np.mean(subsample['time_ms']), 0), np.round(np.mean(subsample['accuracy']),3) , np.round(np.mean(subsample['macro_precision']),3), np.round(np.mean(subsample['macro_recall']), 3), np.round(np.mean(subsample['macro_f1']), 3)))
 
-#to_csv.to_csv('/home/antoine/Documents/GL/MML_java/benchmark/antoine/iris_10_res.csv', index=False)
+to_csv.to_csv('/home/antoine/Documents/GL/MML_java/benchmark/antoine/churn_10_res.csv', index=False) #enregistre le csv de resultat moyen
 for metric in ['mean_time_ms', 'mean_accuracy']:
     for training in [0.5,0.7,0.9]:
         for depth in max_depth_unique:

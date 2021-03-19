@@ -1,11 +1,4 @@
-# multi machine learning (MML)
-
-TODO rendu collectif:
-
-- instructions + requirement packages dans readme 
-
-
-- site web
+# Multi Machine Learning (MML)
 
 
 The goal of this project is to provide high-level facilities to perform machine learning tasks (e.g classification).
@@ -53,7 +46,7 @@ To perform tests with JUnit use `mvn test` in the root folder of this project.
 To package the project as an executable JAR use `mvn package` in the root folder of this project. Then get the JAR file in the `/target` folder.
 This JAR file can be executed with the command `java -jar <filepath>`.
 
-### How to use the application
+## How to use the application
 
 - First launch the server. There are two ways to do this
 	- use Eclipse or another IDE to open the project and run the class "ServerMain"
@@ -61,7 +54,7 @@ This JAR file can be executed with the command `java -jar <filepath>`.
 
 - Then open the `index.html` file in your browser.
 
-- Once you are on the webpage, you can upload a JSON file which matches this kind of format (do not use it as it is, this is just an example, delete # lines first) :
+- Once you are on the webpage, you can get instructions, dowload an example JSON, and upload a JSON file which matches this kind of format (do not use it as it is, this is just an example, delete # lines first) :
 
 CAUTION: the following parameters which are lists work serverside (they all the results) with several elements, however the web app only handles one result, so you should use one-element lists when it is recommended in order to use the web app correctly.
 
@@ -89,4 +82,10 @@ If you lack inspiration, you can try `file_to_upload.json`
 - Click on the cross to close the window and delete the uploaded JSON.
 
 - Shut the server down.
+
+## Contact
+
+antoine.boulinguez@eleve.ensai.fr
+alexis.gassmann@eleve.ensai.fr
+alex.georget@eleve.ensai.fr
 
